@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* ── Saral design tokens (SKILL.md) — exposed as Tailwind utilities ──── */
+@theme {
+  --color-indigo: #1E2A78;
+  --color-indigo-tint: #EAECF7;
+  --color-marigold: #F4A300;
+  --color-marigold-soft: #FFF4DC;
+  --color-ink: #1A1A1A;
+  --color-surface: #F5F6FA;
+  --color-success: #1B7F5C;
+  --color-caution: #C2410C;
+  --color-caution-soft: #FBEAE2;
+  --color-line: #E4E7F0;
+
+  /* Per-glyph fallback: Latin → Noto Sans, Devanagari → Noto Sans Devanagari,
+     Bengali → Noto Sans Bengali. Baloo 2 covers Latin + Devanagari for display;
+     Bengali headings fall back to Noto Sans Bengali. */
+  --font-body: 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-display: 'Baloo 2', 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans', system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 16px; /* minimum body size — never below */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Clear focus ring for low-vision / keyboard users. */
+:focus-visible {
+  outline: 3px solid var(--color-marigold);
+  outline-offset: 2px;
+}
+
+/* Small motion helpers. */
+@keyframes saral-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.saral-spin {
+  animation: saral-spin 0.9s linear infinite;
+}
+
+@keyframes saral-rise {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.saral-rise {
+  animation: saral-rise 0.28s ease-out both;
+}
+
+@keyframes saral-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.saral-sheet-up {
+  animation: saral-sheet-up 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes saral-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 163, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(244, 163, 0, 0);
+  }
+}
+.saral-pulse {
+  animation: saral-pulse 1.4s ease-out infinite;
+}
