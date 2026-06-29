@@ -12,6 +12,7 @@ import AskScreen from './screens/AskScreen.jsx'
 function Router() {
   const [screen, setScreen] = useState('home')
   const [result, setResult] = useState(null)
+  const [resultImage, setResultImage] = useState(null) // { imageBase64, mimeType } for re-translation
   const [flow, setFlow] = useState(null)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [askSeed, setAskSeed] = useState(null) // a voice question to auto-ask
@@ -35,8 +36,9 @@ function Router() {
         <CaptureScreen
           onBack={() => go('home')}
           onLanguage={openLanguage}
-          onResult={(data) => {
+          onResult={(data, image) => {
             setResult(data)
+            setResultImage(image || null)
             go('result')
           }}
         />
@@ -46,6 +48,9 @@ function Router() {
       view = (
         <ResultScreen
           result={result}
+          imageBase64={resultImage?.imageBase64}
+          mimeType={resultImage?.mimeType}
+          onResultChange={setResult}
           onLanguage={openLanguage}
           onBack={() => go('home')}
           onScanAnother={() => go('capture')}

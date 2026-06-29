@@ -73,6 +73,8 @@ export const STRINGS = {
     askSend: 'पूछें',
     askSuggestion: 'अब मुझे क्या करना चाहिए?',
     askMore: 'और पूछें',
+    translating: 'अनुवाद हो रहा है…',
+    translateError: 'अनुवाद नहीं हो सका, दोबारा कोशिश करें',
   },
 
   en: {
@@ -123,6 +125,8 @@ export const STRINGS = {
     askSend: 'Ask',
     askSuggestion: 'What should I do now?',
     askMore: 'Ask more',
+    translating: 'Translating…',
+    translateError: 'Could not translate, please try again',
   },
 
   mr: {
@@ -173,6 +177,8 @@ export const STRINGS = {
     askSend: 'विचारा',
     askSuggestion: 'आता मी काय करावे?',
     askMore: 'अधिक विचारा',
+    translating: 'भाषांतर होत आहे…',
+    translateError: 'भाषांतर झाले नाही, पुन्हा प्रयत्न करा',
   },
 
   bn: {
@@ -223,5 +229,7 @@ export const STRINGS = {
     askSend: 'জিজ্ঞাসা',
     askSuggestion: 'এখন আমার কী করা উচিত?',
     askMore: 'আরও জিজ্ঞাসা',
+    translating: 'অনুবাদ হচ্ছে…',
+    translateError: 'অনুবাদ হয়নি, আবার চেষ্টা করুন',
   },
 }

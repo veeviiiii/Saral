@@ -28,7 +28,8 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
         mimeType,
         language: API_LANGUAGE_NAME[lang],
       })
-      onResult(data)
+      // Pass the image up too, so the result screen can re-translate on language change.
+      onResult(data, { imageBase64: base64, mimeType })
     } catch {
       setError(true)
     } finally {
