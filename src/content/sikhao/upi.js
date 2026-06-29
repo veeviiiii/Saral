@@ -34,6 +34,7 @@ const reviewStep = {
     bn: 'টাকা দেওয়ার আগে, রিভিউ স্ক্রিনে দুটি জিনিস দেখুন: নাম এবং পরিমাণ।',
   },
   illustrationHint: 'Review screen with the recipient name and the amount circled.',
+  image: '/walkthrough/review-pay.svg',
   warningHint: {
     en: 'If the name is not who you expected, tap back and stop.',
     hi: 'अगर नाम वह नहीं है जिसकी उम्मीद थी, पीछे जाएँ और रुक जाएँ।',
@@ -79,6 +80,7 @@ const processingStep = {
     bn: 'স্ক্রিনে "Processing" দেখানোর সময় কয়েক সেকেন্ড অপেক্ষা করুন। অ্যাপ বন্ধ করবেন না।',
   },
   illustrationHint: 'A spinning loader with the word "Processing".',
+  image: '/walkthrough/processing.svg',
   reassurance: {
     en: 'A slow moment here is normal.',
     hi: 'यहाँ थोड़ी देर होना सामान्य है।',
@@ -168,6 +170,7 @@ const typeNumberStep = {
     bn: 'ব্যক্তির ১০ সংখ্যার ফোন নম্বর লিখুন, বা কন্টাক্ট থেকে বেছে নিন।',
   },
   illustrationHint: 'A number keypad with a 10-digit phone number being typed.',
+  image: '/walkthrough/number-entry.svg',
   warningHint: {
     en: 'Check every digit. Money goes to the number you type.',
     hi: 'हर अंक जाँचें। पैसा उसी नंबर पर जाएगा जो आप टाइप करेंगे।',
@@ -183,6 +186,7 @@ const confirmNameStep = {
     bn: 'নাম দেখা গেলে, সঠিক ব্যক্তি কিনা দেখে নিন, তারপর এগিয়ে যেতে চাপুন।',
   },
   illustrationHint: 'The recipient name shown under the number with a small green tick.',
+  image: '/walkthrough/confirm-name.svg',
   reassurance: {
     en: 'The app shows their name so you can be sure before paying.',
     hi: 'ऐप नाम दिखाता है ताकि भुगतान से पहले आप पक्का कर सकें।',
@@ -208,6 +212,7 @@ export const UPI_FLOWS = [
           bn: 'আপনার ফোনে বেগুনি রঙের PhonePe অ্যাপ খুলুন।',
         },
         illustrationHint: 'Phone home screen with the purple PhonePe icon circled.',
+        image: '/walkthrough/open-app.svg',
         reassurance: {
           en: 'Take your time. Nothing is sent until the very end.',
           hi: 'आराम से करें। आखिर तक कुछ नहीं भेजा जाता।',
@@ -223,11 +228,13 @@ export const UPI_FLOWS = [
           bn: 'হোম স্ক্রিনে টাকার অপশন উপরে আর নিচে মাঝখানে বড় বেগুনি "Scan & Pay" বোতাম আছে।',
         },
         illustrationHint: 'PhonePe home: transfer icons up top, Scan & Pay button bottom centre.',
+        image: '/walkthrough/app-home.svg',
       },
       {
         choice: true,
         text: choiceText,
         illustrationHint: 'Two large buttons: "Scan QR" and "Type number".',
+        image: '/walkthrough/two-choice.svg',
         options: choiceOptions,
         branches: {
           qr: [
@@ -239,6 +246,7 @@ export const UPI_FLOWS = [
                 bn: 'নিচে মাঝখানে বেগুনি "Scan & Pay" বোতামে চাপুন।',
               },
               illustrationHint: 'Finger tapping Scan & Pay; the camera opens.',
+              image: '/walkthrough/tap-scan.svg',
               warningHint: {
                 en: 'Allow camera access if the phone asks.',
                 hi: 'अगर फोन कैमरा माँगे तो अनुमति दें।',
@@ -257,6 +265,7 @@ export const UPI_FLOWS = [
                 bn: 'হোম স্ক্রিনে উপরে "To Mobile Number"-এ চাপুন।',
               },
               illustrationHint: 'Tapping the "To Mobile Number" tile.',
+              image: '/walkthrough/tap-contact.svg',
             },
             typeNumberStep,
             confirmNameStep,
@@ -283,6 +292,7 @@ export const UPI_FLOWS = [
           bn: 'রঙিন "G" সহ সাদা Google Pay অ্যাপ খুলুন।',
         },
         illustrationHint: 'Phone home screen with the white Google Pay icon circled.',
+        image: '/walkthrough/open-app.svg',
         reassurance: {
           en: 'Take your time. Nothing is sent until the very end.',
           hi: 'आराम से करें। आखिर तक कुछ नहीं भेजा जाता।',
@@ -298,11 +308,13 @@ export const UPI_FLOWS = [
           bn: 'আপনি সাম্প্রতিক কন্টাক্ট, নীল "New payment" বোতাম, আর উপরে "Scan any QR code" দেখবেন।',
         },
         illustrationHint: 'Google Pay home: contacts grid, blue New payment button, Scan QR at top.',
+        image: '/walkthrough/app-home.svg',
       },
       {
         choice: true,
         text: choiceText,
         illustrationHint: 'Two large buttons: "Scan QR" and "Type number".',
+        image: '/walkthrough/two-choice.svg',
         options: choiceOptions,
         branches: {
           qr: [
@@ -314,6 +326,7 @@ export const UPI_FLOWS = [
                 bn: 'স্ক্রিনের উপরে "Scan any QR code"-এ চাপুন।',
               },
               illustrationHint: 'Tapping Scan any QR code; the camera opens.',
+              image: '/walkthrough/tap-scan.svg',
               warningHint: {
                 en: 'Allow camera access if the phone asks.',
                 hi: 'अगर फोन कैमरा माँगे तो अनुमति दें।',
@@ -332,6 +345,7 @@ export const UPI_FLOWS = [
                 bn: 'নীল "New payment" বোতামে চাপুন।',
               },
               illustrationHint: 'The blue New payment button.',
+              image: '/walkthrough/tap-button.svg',
             },
             {
               text: {
@@ -341,6 +355,7 @@ export const UPI_FLOWS = [
                 bn: '"Pay phone number" বেছে নিন।',
               },
               illustrationHint: 'A Pay phone number option.',
+              image: '/walkthrough/tap-contact.svg',
             },
             typeNumberStep,
             confirmNameStep,
@@ -367,6 +382,7 @@ export const UPI_FLOWS = [
           bn: 'আপনার ফোনে নীল Paytm অ্যাপ খুলুন।',
         },
         illustrationHint: 'Phone home screen with the blue Paytm icon circled.',
+        image: '/walkthrough/open-app.svg',
         reassurance: {
           en: 'Take your time. Nothing is sent until the very end.',
           hi: 'आराम से करें। आखिर तक कुछ नहीं भेजा जाता।',
@@ -382,11 +398,13 @@ export const UPI_FLOWS = [
           bn: 'উপরে বড় "Scan & Pay" বোতাম আর "To Mobile or Contact" অপশন দেখবেন।',
         },
         illustrationHint: 'Paytm home: Scan & Pay button and To Mobile or Contact tile near top.',
+        image: '/walkthrough/app-home.svg',
       },
       {
         choice: true,
         text: choiceText,
         illustrationHint: 'Two large buttons: "Scan QR" and "Type number".',
+        image: '/walkthrough/two-choice.svg',
         options: choiceOptions,
         branches: {
           qr: [
@@ -398,6 +416,7 @@ export const UPI_FLOWS = [
                 bn: 'উপরে "Scan & Pay" বোতামে চাপুন।',
               },
               illustrationHint: 'Tapping Scan & Pay; the camera opens.',
+              image: '/walkthrough/tap-scan.svg',
               warningHint: {
                 en: 'Allow camera access if the phone asks.',
                 hi: 'अगर फोन कैमरा माँगे तो अनुमति दें।',
@@ -416,6 +435,7 @@ export const UPI_FLOWS = [
                 bn: '"To Mobile or Contact"-এ চাপুন।',
               },
               illustrationHint: 'Tapping the To Mobile or Contact option.',
+              image: '/walkthrough/tap-contact.svg',
             },
             typeNumberStep,
             confirmNameStep,
@@ -442,6 +462,7 @@ export const UPI_FLOWS = [
           bn: 'Amazon অ্যাপ খুলুন (গাঢ় রঙে কমলা হাসি সহ)।',
         },
         illustrationHint: 'Phone home screen with the dark Amazon icon (orange smile) circled.',
+        image: '/walkthrough/open-app.svg',
         reassurance: {
           en: 'Amazon Pay lives inside the normal Amazon shopping app.',
           hi: 'Amazon Pay सामान्य Amazon शॉपिंग ऐप के अंदर ही होता है।',
@@ -457,6 +478,7 @@ export const UPI_FLOWS = [
           bn: 'মেনু চাপুন — উপরে তিনটি লাইন।',
         },
         illustrationHint: 'Tapping the hamburger menu (three lines).',
+        image: '/walkthrough/tap-menu.svg',
       },
       {
         text: {
@@ -466,6 +488,7 @@ export const UPI_FLOWS = [
           bn: '"Amazon Pay" অংশটি খুলুন।',
         },
         illustrationHint: 'Amazon Pay highlighted in the menu list.',
+        image: '/walkthrough/list-select.svg',
       },
       {
         text: {
@@ -475,11 +498,13 @@ export const UPI_FLOWS = [
           bn: 'Amazon Pay-এর ভিতরে "Scan any QR" আর "Send money" দেখবেন।',
         },
         illustrationHint: 'Amazon Pay screen with Scan any QR and Send money tiles.',
+        image: '/walkthrough/app-home.svg',
       },
       {
         choice: true,
         text: choiceText,
         illustrationHint: 'Two large buttons: "Scan QR" and "Type number".',
+        image: '/walkthrough/two-choice.svg',
         options: choiceOptions,
         branches: {
           qr: [
@@ -491,6 +516,7 @@ export const UPI_FLOWS = [
                 bn: '"Scan any QR"-এ চাপুন।',
               },
               illustrationHint: 'Tapping Scan any QR; the camera opens.',
+              image: '/walkthrough/tap-scan.svg',
               warningHint: {
                 en: 'Allow camera access if the phone asks.',
                 hi: 'अगर फोन कैमरा माँगे तो अनुमति दें।',
@@ -509,6 +535,7 @@ export const UPI_FLOWS = [
                 bn: '"Send money"-তে চাপুন।',
               },
               illustrationHint: 'Tapping the Send money option.',
+              image: '/walkthrough/tap-contact.svg',
             },
             typeNumberStep,
             confirmNameStep,
@@ -535,6 +562,7 @@ export const UPI_FLOWS = [
           bn: 'BHIM অ্যাপ খুলুন। এটি বড় বোতামওয়ালা সহজ সরকারি অ্যাপ।',
         },
         illustrationHint: 'Phone home screen with the tricolour BHIM icon circled.',
+        image: '/walkthrough/open-app.svg',
         reassurance: {
           en: 'BHIM is made simple on purpose. It works well on basic phones too.',
           hi: 'BHIM जानबूझकर आसान बनाया गया है। यह साधारण फोन पर भी अच्छा चलता है।',
@@ -550,11 +578,13 @@ export const UPI_FLOWS = [
           bn: 'হোম স্ক্রিনে বড় বোতাম দেখায়: "Send Money", "Request", আর "Scan & Pay"।',
         },
         illustrationHint: 'BHIM home with three large buttons.',
+        image: '/walkthrough/app-home.svg',
       },
       {
         choice: true,
         text: choiceText,
         illustrationHint: 'Two large buttons: "Scan QR" and "Type number".',
+        image: '/walkthrough/two-choice.svg',
         options: choiceOptions,
         branches: {
           qr: [
@@ -566,6 +596,7 @@ export const UPI_FLOWS = [
                 bn: '"Scan & Pay" বোতামে চাপুন।',
               },
               illustrationHint: 'Tapping Scan & Pay; the camera opens.',
+              image: '/walkthrough/tap-scan.svg',
               warningHint: {
                 en: 'Allow camera access if the phone asks.',
                 hi: 'अगर फोन कैमरा माँगे तो अनुमति दें।',
@@ -584,6 +615,7 @@ export const UPI_FLOWS = [
                 bn: '"Send Money"-তে চাপুন।',
               },
               illustrationHint: 'Tapping the Send Money button.',
+              image: '/walkthrough/tap-contact.svg',
             },
             typeNumberStep,
             confirmNameStep,

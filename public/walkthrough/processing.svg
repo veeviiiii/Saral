@@ -1,0 +1,9 @@
+<svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wait while it processes">
+  <rect width="240" height="160" rx="14" fill="#EAECF7"/>
+  <!-- static spinner: faint ring + a marigold arc that reads as "in progress" -->
+  <circle cx="120" cy="66" r="26" fill="none" stroke="#1E2A78" stroke-opacity="0.18" stroke-width="7"/>
+  <path d="M120 40 a26 26 0 0 1 22.5 39" fill="none" stroke="#F4A300" stroke-width="7" stroke-linecap="round"/>
+  <!-- "Processing" label bar -->
+  <rect x="78" y="110" width="84" height="14" rx="7" fill="#FFFFFF"/>
+  <rect x="90" y="114" width="60" height="6" rx="3" fill="#1E2A78" opacity="0.4"/>
+</svg>

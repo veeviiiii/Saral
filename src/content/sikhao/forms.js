@@ -10,6 +10,7 @@ const reviewStep = {
     bn: 'প্রতিটি ঘর আরেকবার ধীরে পড়ুন। নাম বা জন্মতারিখে কোনো ভুল থাকলে ঠিক করুন।',
   },
   illustrationHint: 'A filled form with a magnifying glass over the name and date of birth.',
+  image: '/walkthrough/form-fields.svg',
   warningHint: {
     en: 'After you submit, many details cannot be changed. Check now.',
     hi: 'जमा करने के बाद कई बातें बदली नहीं जा सकतीं। अभी जाँच लें।',
@@ -26,6 +27,7 @@ const feePayStep = {
     bn: 'ফি চাইলে, "Pay" চাপুন, UPI বেছে নিন, আর UPI PIN দিন।',
   },
   illustrationHint: 'A fee payment screen with a UPI PIN keypad.',
+  image: '/walkthrough/pin-keypad.svg',
   reassurance: {
     en: 'Same safe UPI PIN as before. Some forms are free and skip this.',
     hi: 'पहले जैसा सुरक्षित UPI PIN। कुछ फॉर्म मुफ़्त होते हैं और यह छोड़ देते हैं।',
@@ -42,6 +44,7 @@ const saveAckStep = {
     bn: 'সাবমিট করার পর আবেদন নম্বর লিখে রাখুন আর স্ক্রিনশট নিন বা রসিদ প্রিন্ট করুন।',
   },
   illustrationHint: 'An acknowledgement page with the application number highlighted.',
+  image: '/walkthrough/reference-number.svg',
   reassurance: {
     en: 'That number is how you check your form later. Keep it safe.',
     hi: 'उसी नंबर से आप बाद में अपना फॉर्म देख सकते हैं। उसे संभालें।',
@@ -72,6 +75,7 @@ export const FORM_FLOWS = [
           bn: 'আপনার ব্রাউজারে সরকারি ওয়েবসাইট খুলুন। এর ঠিকানা ".gov.in" দিয়ে শেষ হয়।',
         },
         illustrationHint: 'A browser address bar showing a .gov.in website.',
+        image: '/walkthrough/browser-url.svg',
         warningHint: {
           en: 'Use only ".gov.in" sites. Other lookalike sites can be fake.',
           hi: 'सिर्फ ".gov.in" साइट इस्तेमाल करें। मिलती-जुलती दूसरी साइट नकली हो सकती हैं।',
@@ -87,6 +91,7 @@ export const FORM_FLOWS = [
           bn: '"Apply" বা "New Registration" খুঁজে চাপুন।',
         },
         illustrationHint: 'An Apply / New Registration button on the portal.',
+        image: '/walkthrough/tap-button.svg',
       },
       {
         text: {
@@ -96,6 +101,7 @@ export const FORM_FLOWS = [
           bn: 'আপনার নাম, জন্মতারিখ ও ঠিকানা ঠিক যেমন কাগজে লেখা তেমনই লিখুন।',
         },
         illustrationHint: 'A form with name, DOB, and address fields.',
+        image: '/walkthrough/form-fields.svg',
         warningHint: {
           en: 'Spelling must match your documents, or the form may be rejected.',
           hi: 'वर्तनी कागज़ों से मिलनी चाहिए, वरना फॉर्म रद्द हो सकता है।',
@@ -111,6 +117,7 @@ export const FORM_FLOWS = [
           bn: 'আধার নম্বর চাইলে, ১২টি সংখ্যা ধীরে ও যত্ন করে লিখুন।',
         },
         illustrationHint: 'A 12-digit Aadhaar number being typed into a field.',
+        image: '/walkthrough/number-entry.svg',
         reassurance: {
           en: 'It is normal and safe for an official .gov.in form to ask for your Aadhaar number.',
           hi: 'किसी आधिकारिक .gov.in फॉर्म का आधार नंबर माँगना सामान्य और सुरक्षित है।',
@@ -126,6 +133,7 @@ export const FORM_FLOWS = [
           bn: 'এটি আপনার আধার-যুক্ত ফোনে OTP পাঠায়। যাচাই করতে সেই ৬ সংখ্যার কোড দিন।',
         },
         illustrationHint: 'An OTP arriving by SMS and being entered.',
+        image: '/walkthrough/otp.svg',
         warningHint: {
           en: 'Type the OTP into the website only. Never read it out to a caller.',
           hi: 'OTP सिर्फ वेबसाइट में डालें। किसी कॉल करने वाले को कभी न बताएं।',
@@ -141,6 +149,7 @@ export const FORM_FLOWS = [
           bn: '"Upload" চাপুন, তারপর চাওয়া নথির পরিষ্কার ছবি বা স্ক্যান বেছে নিন।',
         },
         illustrationHint: 'An upload button and a clear document photo being selected.',
+        image: '/walkthrough/upload.svg',
         warningHint: {
           en: 'The photo must be clear and show the whole document, usually under 2 MB.',
           hi: 'फोटो साफ़ हो और पूरा दस्तावेज़ दिखे, आमतौर पर 2 MB से कम।',
@@ -157,6 +166,7 @@ export const FORM_FLOWS = [
           bn: '"Submit" চাপুন। ফর্ম সরকারি অফিসে পাঠানো হয়।',
         },
         illustrationHint: 'A Submit button being tapped.',
+        image: '/walkthrough/tap-button.svg',
       },
       feePayStep,
       saveAckStep,
@@ -184,6 +194,7 @@ export const FORM_FLOWS = [
           bn: 'আপনার ব্রাউজারে স্কুল বা কলেজের ভর্তির ওয়েবসাইট খুলুন।',
         },
         illustrationHint: 'An admission portal home page in a browser.',
+        image: '/walkthrough/browser-url.svg',
       },
       {
         text: {
@@ -193,6 +204,7 @@ export const FORM_FLOWS = [
           bn: 'নতুন আবেদন শুরু করতে "Register" চাপুন।',
         },
         illustrationHint: 'A Register button on the portal.',
+        image: '/walkthrough/tap-button.svg',
       },
       {
         text: {
@@ -202,6 +214,7 @@ export const FORM_FLOWS = [
           bn: 'লগইন তৈরি করতে আপনার মোবাইল নম্বর ও ইমেল দিন।',
         },
         illustrationHint: 'Mobile number and email fields.',
+        image: '/walkthrough/form-fields.svg',
         reassurance: {
           en: 'Write your login and password on paper so you can come back later.',
           hi: 'अपना लॉगिन और पासवर्ड कागज़ पर लिख लें ताकि बाद में लौट सकें।',
@@ -217,6 +230,7 @@ export const FORM_FLOWS = [
           bn: 'ফোনে আসা OTP দিয়ে যাচাই করুন।',
         },
         illustrationHint: 'An OTP verification box.',
+        image: '/walkthrough/otp.svg',
       },
       {
         text: {
@@ -226,6 +240,7 @@ export const FORM_FLOWS = [
           bn: 'শিক্ষার্থীর নাম, জন্মতারিখ, বাবা-মায়ের নাম, আর আগের স্কুল বা নম্বর লিখুন।',
         },
         illustrationHint: 'Student detail fields being filled in.',
+        image: '/walkthrough/form-fields.svg',
       },
       {
         text: {
@@ -235,6 +250,7 @@ export const FORM_FLOWS = [
           bn: 'ছবি আপলোড করুন: হালকা ব্যাকগ্রাউন্ডের পাসপোর্ট সাইজ ছবি, সাধারণত ৫০–২০০ KB।',
         },
         illustrationHint: 'A passport-size photo with a light background being uploaded.',
+        image: '/walkthrough/upload.svg',
         warningHint: {
           en: 'If the photo is too big, the site will refuse it. Use a smaller, clear photo.',
           hi: 'फोटो बहुत बड़ी हो तो साइट नहीं लेगी। छोटी और साफ़ फोटो इस्तेमाल करें।',
@@ -250,6 +266,7 @@ export const FORM_FLOWS = [
           bn: 'স্বাক্ষর আপলোড করুন: সাদা কাগজে সই করুন, ছবি তুলুন, আর সেই ছবি বেছে নিন।',
         },
         illustrationHint: 'A signature on white paper being photographed and uploaded.',
+        image: '/walkthrough/upload.svg',
       },
       {
         text: {
@@ -259,6 +276,7 @@ export const FORM_FLOWS = [
           bn: 'চাওয়া নথি আপলোড করুন, যেমন মার্কশিট আর জন্ম শংসাপত্র।',
         },
         illustrationHint: 'Marksheet and birth certificate being uploaded.',
+        image: '/walkthrough/upload.svg',
       },
       {
         text: {
@@ -268,6 +286,7 @@ export const FORM_FLOWS = [
           bn: 'আপনি যে ক্লাস বা কোর্সের জন্য আবেদন করছেন তা বেছে নিন।',
         },
         illustrationHint: 'A dropdown of classes or courses.',
+        image: '/walkthrough/list-select.svg',
       },
       reviewStep,
       feePayStep,

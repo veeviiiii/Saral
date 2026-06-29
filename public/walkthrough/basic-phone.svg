@@ -1,0 +1,17 @@
+<svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Book with a missed call from any phone">
+  <rect width="240" height="160" rx="14" fill="#EAECF7"/>
+  <!-- simple keypad phone -->
+  <rect x="92" y="16" width="56" height="128" rx="12" fill="#FFFFFF" stroke="#1E2A78" stroke-width="2.5"/>
+  <rect x="100" y="26" width="40" height="30" rx="4" fill="#EAECF7"/>
+  <!-- keypad -->
+  <g fill="#1E2A78" opacity="0.55">
+    <circle cx="106" cy="72" r="3.5"/><circle cx="120" cy="72" r="3.5"/><circle cx="134" cy="72" r="3.5"/>
+    <circle cx="106" cy="86" r="3.5"/><circle cx="120" cy="86" r="3.5"/><circle cx="134" cy="86" r="3.5"/>
+    <circle cx="106" cy="100" r="3.5"/><circle cx="120" cy="100" r="3.5"/><circle cx="134" cy="100" r="3.5"/>
+    <circle cx="106" cy="114" r="3.5"/><circle cx="120" cy="114" r="3.5"/><circle cx="134" cy="114" r="3.5"/>
+  </g>
+  <circle cx="120" cy="132" r="5" fill="#1E2A78" opacity="0.3"/>
+  <!-- green call badge -->
+  <circle cx="156" cy="44" r="16" fill="#1B7F5C"/>
+  <path d="M150 37 a2 2 0 0 1 2 -2 h2.5 l2 4.5 -2 1.7 a8.5 8.5 0 0 0 4.3 4.3 l1.7 -2 4.5 2 v2.5 a2 2 0 0 1 -2 2 c-7 0 -13 -6 -13 -13 Z" fill="#FFFFFF"/>
+</svg>

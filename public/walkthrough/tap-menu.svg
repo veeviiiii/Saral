@@ -1,0 +1,16 @@
+<svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tap the menu (three lines)">
+  <rect width="240" height="160" rx="14" fill="#EAECF7"/>
+  <rect x="28" y="48" width="184" height="64" rx="18" fill="#FFF4DC" stroke="#F4A300" stroke-width="4"/>
+  <!-- hamburger menu icon -->
+  <g fill="#1E2A78">
+    <rect x="50" y="66" width="34" height="6" rx="3"/>
+    <rect x="50" y="77" width="34" height="6" rx="3"/>
+    <rect x="50" y="88" width="34" height="6" rx="3"/>
+  </g>
+  <!-- label lines -->
+  <rect x="100" y="70" width="84" height="9" rx="4.5" fill="#1E2A78" opacity="0.55"/>
+  <rect x="100" y="85" width="54" height="7" rx="3.5" fill="#1E2A78" opacity="0.25"/>
+  <!-- tap ripple -->
+  <g fill="none" stroke="#F4A300" stroke-width="3"><circle cx="67" cy="120" r="7"/><path d="M76 120 a9 9 0 0 0 -9 -9" opacity="0.5"/></g>
+  <circle cx="67" cy="120" r="2.5" fill="#F4A300"/>
+</svg>

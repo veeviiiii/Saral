@@ -11,6 +11,7 @@ const findNumberStep = (code) => ({
     bn: `আপনি নিজের নম্বর না জানলে, ${code} ডায়াল করে কল চাপুন — আপনার নম্বর স্ক্রিনে আসবে।`,
   },
   illustrationHint: `Phone dial pad showing ${code} with the green call button.`,
+  image: '/walkthrough/dial-code.svg',
   reassurance: {
     en: 'Or look at the small plastic SIM holder you got when you bought the SIM.',
     hi: 'या SIM खरीदते समय मिले छोटे प्लास्टिक SIM होल्डर पर देखें।',
@@ -27,6 +28,7 @@ const checkExpiryStep = (app) => ({
     bn: `আপনার বর্তমান প্ল্যান ও কবে শেষ হবে দেখতে ${app} অ্যাপ খুলুন — মেয়াদের তারিখ হোম স্ক্রিনের উপরে দেখায়।`,
   },
   illustrationHint: `${app} home screen with the plan expiry date highlighted at the top.`,
+  image: '/walkthrough/plan-expiry.svg',
 })
 
 const checkDigits = {
@@ -45,6 +47,7 @@ const ownAppBranch = (app) => [
       bn: `${app} অ্যাপ খুলুন।`,
     },
     illustrationHint: `Phone home screen with the ${app} icon circled.`,
+    image: '/walkthrough/open-app.svg',
   },
   {
     text: {
@@ -54,6 +57,7 @@ const ownAppBranch = (app) => [
       bn: 'লগ ইন চাইলে, আপনার মোবাইল নম্বর দিন এবং Continue চাপুন।',
     },
     illustrationHint: 'Login screen with a phone number field.',
+    image: '/walkthrough/login-phone.svg',
   },
   {
     text: {
@@ -63,6 +67,7 @@ const ownAppBranch = (app) => [
       bn: 'ফোনে SMS-এ আসা ৬ সংখ্যার কোড (OTP) দিন।',
     },
     illustrationHint: 'An OTP box being filled in.',
+    image: '/walkthrough/otp.svg',
     warningHint: {
       en: 'Never tell this OTP to anyone on a phone call.',
       hi: 'यह OTP फोन कॉल पर किसी को न बताएं।',
@@ -78,6 +83,7 @@ const ownAppBranch = (app) => [
       bn: 'হোম স্ক্রিনে "Recharge" চাপুন। আপনার নম্বর আগে থেকেই বসানো থাকে।',
     },
     illustrationHint: 'A Recharge button on the app home with the number pre-filled.',
+    image: '/walkthrough/tap-button.svg',
   },
 ]
 
@@ -90,6 +96,7 @@ const viaUpiBranch = (upi) => [
       bn: `${upi} খুলুন।`,
     },
     illustrationHint: `Phone home screen with the ${upi} icon circled.`,
+    image: '/walkthrough/open-app.svg',
   },
   {
     text: {
@@ -99,6 +106,7 @@ const viaUpiBranch = (upi) => [
       bn: '"Recharge & Pay Bills" চাপুন।',
     },
     illustrationHint: 'The Recharge & Pay Bills tile on the home screen.',
+    image: '/walkthrough/tap-tile.svg',
   },
   {
     text: {
@@ -108,6 +116,7 @@ const viaUpiBranch = (upi) => [
       bn: '"Mobile Recharge" চাপুন।',
     },
     illustrationHint: 'A grid of bill types with Mobile Recharge highlighted.',
+    image: '/walkthrough/tap-tile.svg',
   },
   {
     text: {
@@ -117,6 +126,7 @@ const viaUpiBranch = (upi) => [
       bn: 'আপনার ১০ সংখ্যার নম্বর লিখুন। আপনার অপারেটর নিজে থেকেই বেরিয়ে আসে।',
     },
     illustrationHint: 'Number entry with the operator logo auto-detected below.',
+    image: '/walkthrough/number-entry.svg',
     warningHint: checkDigits,
   },
 ]
@@ -130,6 +140,7 @@ const pickPlanStep = {
     bn: 'প্ল্যান সারিতে দেখায়। প্রতিটিতে ₹-এ দাম, কত দিন চলবে, প্রতিদিনের ডেটা, আর ফ্রি কল দেখায়। আপনার প্ল্যান বেছে নিন।',
   },
   illustrationHint: 'Plan list with columns labelled: price, validity (days), data/day, calls.',
+  image: '/walkthrough/plan-list.svg',
   warningHint: {
     en: 'A higher price is not always better — choose the validity (days) you actually need.',
     hi: 'ज़्यादा कीमत हमेशा बेहतर नहीं — उतने ही दिन चुनें जितने आपको चाहिए।',
@@ -152,6 +163,7 @@ const proceedPayStep = {
     bn: '"Proceed to Pay" চাপুন।',
   },
   illustrationHint: 'A Proceed to Pay button at the bottom.',
+  image: '/walkthrough/tap-button.svg',
 }
 
 const choosePayMethodStep = {
@@ -162,6 +174,7 @@ const choosePayMethodStep = {
     bn: 'তালিকা থেকে আপনার UPI অ্যাপ বা ব্যাঙ্ক বেছে নিন।',
   },
   illustrationHint: 'A list of UPI apps and banks.',
+  image: '/walkthrough/list-select.svg',
   warningHint: {
     en: 'Check the amount shown matches the plan price.',
     hi: 'जाँचें कि दिखाई गई रकम प्लान की कीमत के बराबर है।',
@@ -195,6 +208,7 @@ const confirmSmsStep = {
     bn: "টাকা দেওয়ার পর এমন SMS আসবে: 'Recharge of ₹239 successful. Valid till 12-08-2026.'",
   },
   illustrationHint: 'An SMS notification confirming the recharge with a validity date.',
+  image: '/walkthrough/sms.svg',
   reassurance: {
     en: "That SMS is your proof. You don't need to do anything else.",
     hi: 'वह SMS आपका सबूत है। और कुछ करने की ज़रूरत नहीं।',
@@ -211,6 +225,7 @@ const rechargeFailStep = {
     bn: "'Failed' দেখালে, রিচার্জ হয়নি এবং টাকা সাধারণত ১–২ দিনে ফেরত আসে।",
   },
   illustrationHint: 'A red Failed message with a calm clock icon.',
+  image: '/walkthrough/failed.svg',
   warningHint: {
     en: 'Do not recharge again right away. Check your balance or wait for an SMS first.',
     hi: 'तुरंत दोबारा रिचार्ज न करें। पहले बैलेंस जाँचें या SMS का इंतज़ार करें।',
@@ -237,6 +252,7 @@ const rechargeChoice = (own, upi) => ({
     bn: `আপনি কীভাবে রিচার্জ করতে চান? ${own} অ্যাপে নাকি ${upi} দিয়ে?`,
   },
   illustrationHint: `Two buttons: "${own} app" and "${upi}".`,
+  image: '/walkthrough/two-options.svg',
   options: [
     { label: { en: `In the ${own} app`, hi: `${own} ऐप में`, mr: `${own} ॲपमध्ये`, bn: `${own} অ্যাপে` }, branch: 'own' },
     { label: { en: `Through ${upi}`, hi: `${upi} के ज़रिए`, mr: `${upi} द्वारे`, bn: `${upi} দিয়ে` }, branch: 'via' },

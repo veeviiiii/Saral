@@ -1,0 +1,16 @@
+<svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Open the official gov.in website">
+  <rect width="240" height="160" rx="14" fill="#EAECF7"/>
+  <!-- browser window -->
+  <rect x="24" y="20" width="192" height="120" rx="10" fill="#FFFFFF" stroke="#1E2A78" stroke-opacity="0.15" stroke-width="2"/>
+  <!-- browser chrome dots -->
+  <g fill="#1E2A78" opacity="0.3"><circle cx="38" cy="34" r="3"/><circle cx="48" cy="34" r="3"/><circle cx="58" cy="34" r="3"/></g>
+  <!-- address bar (highlighted) -->
+  <rect x="34" y="46" width="172" height="26" rx="13" fill="#FFFFFF" stroke="#F4A300" stroke-width="3"/>
+  <!-- lock -->
+  <g fill="#1B7F5C"><rect x="46" y="56" width="11" height="9" rx="2"/><path d="M48.5 56 V53 a3 3 0 0 1 6 0 V56" fill="none" stroke="#1B7F5C" stroke-width="2"/></g>
+  <text x="66" y="63" font-family="sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">....gov.in</text>
+  <!-- page content lines -->
+  <rect x="40" y="86" width="120" height="9" rx="4.5" fill="#1E2A78" opacity="0.4"/>
+  <rect x="40" y="102" width="160" height="7" rx="3.5" fill="#1E2A78" opacity="0.2"/>
+  <rect x="40" y="116" width="140" height="7" rx="3.5" fill="#1E2A78" opacity="0.2"/>
+</svg>

@@ -1,0 +1,33 @@
+<svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The app home screen">
+  <rect width="240" height="160" rx="14" fill="#EAECF7"/>
+  <!-- phone (this step IS about seeing the whole home screen) -->
+  <rect x="74" y="8" width="92" height="144" rx="14" fill="#FFFFFF" stroke="#1E2A78" stroke-opacity="0.15" stroke-width="2"/>
+  <!-- top bar: avatar + search -->
+  <circle cx="88" cy="22" r="5" fill="#1E2A78" opacity="0.45"/>
+  <rect x="98" y="18" width="58" height="8" rx="4" fill="#EAECF7"/>
+  <!-- a row of action icons with detailed glyphs (positions vary by app — shown generically) -->
+  <g>
+    <!-- scan -->
+    <rect x="84" y="34" width="22" height="22" rx="6" fill="#EAECF7"/>
+    <g stroke="#1E2A78" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
+      <path d="M90 42 V40 H92"/><path d="M98 40 H100 V42"/><path d="M90 48 V50 H92"/><path d="M98 50 H100 V48"/>
+    </g>
+    <rect x="93" y="44" width="4" height="4" fill="#1E2A78" opacity="0.7"/>
+    <!-- send / rupee -->
+    <rect x="112" y="34" width="22" height="22" rx="6" fill="#EAECF7"/>
+    <text x="123" y="50" font-family="sans-serif" font-size="14" font-weight="700" fill="#1E2A78" text-anchor="middle" opacity="0.7">₹</text>
+    <!-- contact -->
+    <rect x="140" y="34" width="22" height="22" rx="6" fill="#EAECF7"/>
+    <circle cx="151" cy="42" r="3.5" fill="#1E2A78" opacity="0.7"/>
+    <path d="M145 51 a6 5 0 0 1 12 0" fill="#1E2A78" opacity="0.7"/>
+  </g>
+  <!-- recent contacts row -->
+  <g>
+    <circle cx="90" cy="76" r="9" fill="#EAECF7"/><circle cx="90" cy="73" r="3" fill="#1E2A78" opacity="0.4"/><path d="M85 80 a5 4 0 0 1 10 0" fill="#1E2A78" opacity="0.4"/>
+    <circle cx="114" cy="76" r="9" fill="#EAECF7"/><circle cx="114" cy="73" r="3" fill="#1E2A78" opacity="0.4"/><path d="M109 80 a5 4 0 0 1 10 0" fill="#1E2A78" opacity="0.4"/>
+    <circle cx="138" cy="76" r="9" fill="#EAECF7"/><circle cx="138" cy="73" r="3" fill="#1E2A78" opacity="0.4"/><path d="M133 80 a5 4 0 0 1 10 0" fill="#1E2A78" opacity="0.4"/>
+  </g>
+  <!-- promo / list strip -->
+  <rect x="84" y="94" width="72" height="20" rx="6" fill="#EAECF7"/>
+  <rect x="84" y="120" width="72" height="22" rx="6" fill="#EAECF7"/>
+</svg>

@@ -14,6 +14,7 @@ const openAppStep = (app) => ({
     bn: `আপনার ফোনে ${app} অ্যাপ খুলুন।`,
   },
   illustrationHint: `Phone home screen with the ${app} icon circled.`,
+  image: '/walkthrough/open-app.svg',
   reassurance: {
     en: 'Booking gas online is just a few taps. We will go slowly.',
     hi: 'ऑनलाइन गैस बुक करना बस कुछ टैप है। हम धीरे-धीरे चलेंगे।',
@@ -30,6 +31,7 @@ const gasLoginNumberStep = {
     bn: 'আপনার গ্যাস সংযোগে নিবন্ধিত মোবাইল নম্বর দিয়ে লগ ইন করুন।',
   },
   illustrationHint: 'Login screen with a mobile number field.',
+  image: '/walkthrough/login-phone.svg',
   warningHint: {
     en: 'Use the number linked to your connection, or the app may not find your details.',
     hi: 'वही नंबर डालें जो कनेक्शन से जुड़ा है, वरना ऐप आपकी जानकारी नहीं ढूँढ़ पाएगा।',
@@ -46,6 +48,7 @@ const gasLoginOtpStep = {
     bn: 'সেই নম্বরে আসা ৬ সংখ্যার OTP দিন।',
   },
   illustrationHint: 'An OTP box being filled in.',
+  image: '/walkthrough/otp.svg',
   warningHint: {
     en: 'Never share this OTP with anyone on a call.',
     hi: 'यह OTP कॉल पर किसी को न बताएं।',
@@ -62,6 +65,7 @@ const bookCylinderStep = {
     bn: 'হোম স্ক্রিনে "Book Cylinder" (বা "Book Now") চাপুন।',
   },
   illustrationHint: 'A large Book Cylinder button on the app home.',
+  image: '/walkthrough/tap-button.svg',
 }
 
 const checkAddressStep = {
@@ -72,6 +76,7 @@ const checkAddressStep = {
     bn: 'দেখানো ঠিকানা ও কনজিউমার নম্বর আপনার কিনা দেখে নিন, তারপর এগিয়ে যান।',
   },
   illustrationHint: 'Address and consumer number shown for confirmation.',
+  image: '/walkthrough/details-check.svg',
   reassurance: {
     en: 'These details come from your connection — usually they are already correct.',
     hi: 'ये जानकारी आपके कनेक्शन से आती है — आमतौर पर पहले से सही होती है।',
@@ -88,6 +93,7 @@ const confirmBookingStep = {
     bn: 'বুকিং করতে "Confirm" (বা "Book") চাপুন।',
   },
   illustrationHint: 'A Confirm/Book button on the review screen.',
+  image: '/walkthrough/tap-button.svg',
 }
 
 const gasPaymentChoice = {
@@ -99,6 +105,7 @@ const gasPaymentChoice = {
     bn: 'আপনি কীভাবে টাকা দিতে চান? এখন অনলাইনে, নাকি সিলিন্ডার এলে নগদে?',
   },
   illustrationHint: 'Two buttons: "Pay now" and "Cash on delivery".',
+  image: '/walkthrough/two-options.svg',
   options: [
     { label: { en: 'Pay now', hi: 'अभी भुगतान करें', mr: 'आता पैसे द्या', bn: 'এখন দিন' }, branch: 'paynow' },
     { label: { en: 'Cash on delivery', hi: 'डिलीवरी पर नकद', mr: 'डिलिव्हरीवर रोख', bn: 'ডেলিভারিতে নগদ' }, branch: 'cod' },
@@ -113,6 +120,7 @@ const gasPaymentChoice = {
           bn: '"Pay Online" বেছে নিন।',
         },
         illustrationHint: 'A Pay Online option.',
+        image: '/walkthrough/tap-button.svg',
       },
       {
         text: {
@@ -122,6 +130,7 @@ const gasPaymentChoice = {
           bn: 'তালিকা থেকে আপনার UPI অ্যাপ বা ব্যাঙ্ক বেছে নিন।',
         },
         illustrationHint: 'A list of UPI apps and banks.',
+        image: '/walkthrough/list-select.svg',
       },
       {
         text: {
@@ -149,6 +158,7 @@ const gasPaymentChoice = {
           bn: '"Cash on Delivery" বেছে নিন। সিলিন্ডার এলে ডেলিভারি ব্যক্তিকে টাকা দেবেন।',
         },
         illustrationHint: 'Cash on delivery selected; a delivery person with a cylinder.',
+        image: '/walkthrough/cash-delivery.svg',
         warningHint: {
           en: 'Ask for the printed receipt and check the price before paying cash.',
           hi: 'नकद देने से पहले छपी रसीद माँगें और कीमत जाँचें।',
@@ -168,6 +178,7 @@ const gasConfirmStep = {
     bn: 'আপনি একটি বুকিং নম্বর দেখবেন আর নিশ্চিতকরণ SMS পাবেন। আপনার রিফিল বুক হয়ে গেছে।',
   },
   illustrationHint: 'Booking confirmed screen with a booking number and SMS.',
+  image: '/walkthrough/reference-number.svg',
   reassurance: {
     en: 'Keep that SMS until the cylinder is delivered.',
     hi: 'सिलेंडर मिलने तक वह SMS संभाल कर रखें।',
@@ -184,6 +195,7 @@ const gasDeliveryStep = {
     bn: 'সিলিন্ডার সাধারণত ১ থেকে ৩ দিনে আসে। আপনি "Booking History"-তে দেখতে পারেন।',
   },
   illustrationHint: 'A calm calendar showing 1–3 days with a delivery truck.',
+  image: '/walkthrough/delivery.svg',
 }
 
 const GAS_TAIL = [gasConfirmStep, gasDeliveryStep]
@@ -247,6 +259,7 @@ export const GAS_FLOWS = [
           bn: 'স্মার্টফোন বা ইন্টারনেট লাগবে না — আপনি শুধু একটি মিসড কলে বুক করতে পারেন।',
         },
         illustrationHint: 'A simple keypad phone with a phone-call icon.',
+        image: '/walkthrough/basic-phone.svg',
         reassurance: {
           en: 'This is the easiest way if you have a basic phone.',
           hi: 'साधारण फोन हो तो यह सबसे आसान तरीका है।',
@@ -262,6 +275,7 @@ export const GAS_FLOWS = [
           bn: 'আপনার গ্যাস বুকিং নম্বর খুঁজুন — এটি আপনার গ্যাস পাসবুকে বা শেষ ডেলিভারি রসিদে ছাপা থাকে।',
         },
         illustrationHint: 'A gas passbook with the booking phone number highlighted.',
+        image: '/walkthrough/passbook.svg',
         warningHint: {
           en: 'Numbers differ by company and area — confirm yours with your gas agency once.',
           hi: 'नंबर कंपनी और इलाके से बदलते हैं — एक बार अपनी गैस एजेंसी से पक्का कर लें।',
@@ -277,6 +291,7 @@ export const GAS_FLOWS = [
           bn: 'সেই নম্বরটি আপনার কন্টাক্টে "Gas booking" নামে সেভ করুন।',
         },
         illustrationHint: 'Saving a contact named Gas booking.',
+        image: '/walkthrough/save-contact.svg',
         reassurance: {
           en: 'Saving it once means you never have to search for it again.',
           hi: 'एक बार सेव कर लें तो दोबारा ढूँढ़ना नहीं पड़ेगा।',
@@ -292,6 +307,7 @@ export const GAS_FLOWS = [
           bn: 'যে ফোনে আপনার গ্যাস সংযোগে নিবন্ধিত নম্বর আছে সেটিই ব্যবহার করুন।',
         },
         illustrationHint: 'A phone showing the registered SIM number.',
+        // No mockup: advisory step about which SIM to use — nothing visual to point at.
         warningHint: {
           en: 'If you call from a different number, the booking will not be linked to you.',
           hi: 'किसी दूसरे नंबर से कॉल करेंगे तो बुकिंग आपसे नहीं जुड़ेगी।',
@@ -313,6 +329,7 @@ export const GAS_FLOWS = [
           bn: 'সেভ করা "Gas booking" নম্বরে একবার কল করুন।',
         },
         illustrationHint: 'Tapping call on the Gas booking contact.',
+        image: '/walkthrough/tap-contact.svg',
       },
       {
         text: {
@@ -322,6 +339,7 @@ export const GAS_FLOWS = [
           bn: 'একবার রিং হতে দিন — কল নিজে থেকে কেটে যায়। এর জন্য টাকা লাগে না।',
         },
         illustrationHint: 'A call ending after one ring.',
+        // No mockup: a transient one-ring action — a still image adds nothing.
         reassurance: {
           en: 'A missed call is free. You do not need to say anything.',
           hi: 'मिस्ड कॉल मुफ़्त है। कुछ बोलने की ज़रूरत नहीं।',
@@ -337,6 +355,7 @@ export const GAS_FLOWS = [
           bn: 'কয়েক মিনিট অপেক্ষা করুন। বুকিং নম্বর সহ নিশ্চিতকরণ SMS আসবে।',
         },
         illustrationHint: 'A confirmation SMS arriving with a booking number.',
+        image: '/walkthrough/sms.svg',
         reassurance: {
           en: 'When that SMS comes, your booking is done. Keep it safe.',
           hi: 'वह SMS आ जाए तो बुकिंग हो गई। उसे संभाल कर रखें।',
@@ -352,6 +371,7 @@ export const GAS_FLOWS = [
           bn: '১০ মিনিটে SMS না এলে, আরেকবার মিসড কল দিন, বা আপনার গ্যাস এজেন্সিকে ফোন করুন।',
         },
         illustrationHint: 'A clock showing 10 minutes and a second call attempt.',
+        image: '/walkthrough/clock.svg',
         warningHint: {
           en: 'Do not assume it is booked without the SMS — check first.',
           hi: 'SMS के बिना बुकिंग मान न लें — पहले जाँच लें।',
@@ -367,6 +387,7 @@ export const GAS_FLOWS = [
           bn: 'খালি সিলিন্ডার দরজার কাছে প্রস্তুত রাখুন, নতুনটি এলে বদলে নিতে পারবেন।',
         },
         illustrationHint: 'An empty cylinder placed by the front door.',
+        image: '/walkthrough/cylinder.svg',
         reassurance: {
           en: 'The delivery person takes the empty one and gives you the full one.',
           hi: 'डिलीवरी वाला खाली ले जाता है और भरा हुआ दे देता है।',
@@ -382,6 +403,7 @@ export const GAS_FLOWS = [
           bn: 'সিলিন্ডার এলে ডেলিভারি ব্যক্তিকে নগদ দিন, আর রসিদ নিন।',
         },
         illustrationHint: 'Paying cash and receiving a receipt at the door.',
+        image: '/walkthrough/cash-delivery.svg',
         warningHint: {
           en: 'Check the price on the receipt before paying.',
           hi: 'भुगतान से पहले रसीद पर कीमत जाँचें।',
@@ -413,6 +435,7 @@ export const GAS_FLOWS = [
           bn: 'আপনার গ্যাস কোম্পানির অ্যাপ খুলুন (Indane, HP, বা Bharat Gas)।',
         },
         illustrationHint: 'A gas company app opening.',
+        image: '/walkthrough/open-app.svg',
       },
       {
         text: {
@@ -422,6 +445,7 @@ export const GAS_FLOWS = [
           bn: '"Booking History" বা "Track Refill" চাপুন।',
         },
         illustrationHint: 'A Booking History / Track Refill menu item.',
+        image: '/walkthrough/list-select.svg',
       },
       {
         text: {
@@ -431,6 +455,7 @@ export const GAS_FLOWS = [
           bn: 'আপনার সবচেয়ে নতুন বুকিং তালিকার উপরে থাকে। সেটিতে ট্যাপ করুন।',
         },
         illustrationHint: 'The latest booking highlighted at the top of the list.',
+        image: '/walkthrough/list-select.svg',
       },
       {
         text: {
@@ -440,6 +465,7 @@ export const GAS_FLOWS = [
           bn: 'আপনি অবস্থা দেখবেন: "Booked", তারপর "Out for delivery", তারপর "Delivered"।',
         },
         illustrationHint: 'A status tracker: Booked → Out for delivery → Delivered.',
+        image: '/walkthrough/status-tracker.svg',
         reassurance: {
           en: 'No app? The same updates also come to you by SMS.',
           hi: 'ऐप नहीं है? यही जानकारी आपको SMS से भी मिलती है।',
@@ -455,6 +481,7 @@ export const GAS_FLOWS = [
           bn: '"Booked" মানে এজেন্সির কাছে আপনার অর্ডার আছে কিন্তু এখনও পাঠায়নি। সাধারণত এক দিনের মধ্যে এগোয়।',
         },
         illustrationHint: 'The Booked stage highlighted with a calm clock.',
+        image: '/walkthrough/status-tracker.svg',
         reassurance: {
           en: 'This waiting stage is normal. Nothing is wrong.',
           hi: 'यह इंतज़ार सामान्य है। कुछ गलत नहीं है।',
@@ -470,6 +497,7 @@ export const GAS_FLOWS = [
           bn: '২ থেকে ৩ দিনের বেশি "Booked" থাকলে, আপনার গ্যাস এজেন্সিকে ফোন করুন।',
         },
         illustrationHint: 'Calling the gas agency number from the passbook.',
+        image: '/walkthrough/tap-contact.svg',
         warningHint: {
           en: 'The agency number is on your gas passbook or last receipt.',
           hi: 'एजेंसी का नंबर आपकी गैस पासबुक या पिछली रसीद पर होता है।',
@@ -485,6 +513,7 @@ export const GAS_FLOWS = [
           bn: 'যখন "Out for delivery" দেখায়, নগদ, খালি সিলিন্ডার আর ফোন প্রস্তুত রাখুন।',
         },
         illustrationHint: 'Cash, empty cylinder, and phone kept ready by the door.',
+        image: '/walkthrough/delivery.svg',
         reassurance: {
           en: 'The delivery person usually calls before reaching your home.',
           hi: 'डिलीवरी वाला आमतौर पर घर पहुँचने से पहले फोन करता है।',
@@ -500,6 +529,7 @@ export const GAS_FLOWS = [
           bn: 'ডেলিভারি মিস করলে, চিন্তা করবেন না — তারা সাধারণত আবার আসেন বা ফোন করেন। বুকিং থেকে যায়।',
         },
         illustrationHint: 'A missed delivery with a friendly re-attempt note.',
+        // No mockup: reassurance about a missed attempt — no concrete UI to depict.
         reassurance: {
           en: 'Your booking is not lost if you miss one attempt.',
           hi: 'एक बार छूटने पर बुकिंग खत्म नहीं होती।',
@@ -515,6 +545,7 @@ export const GAS_FLOWS = [
           bn: 'সিলিন্ডার পাওয়ার পর অবস্থা "Delivered" হয়ে যায়। মানে কাজ সম্পূর্ণ।',
         },
         illustrationHint: 'A green Delivered status with a tick.',
+        image: '/walkthrough/success.svg',
         reassurance: {
           en: 'Delivered means you are all done.',
           hi: '"Delivered" यानी सब हो गया।',
