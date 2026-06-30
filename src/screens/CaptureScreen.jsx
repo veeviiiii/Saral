@@ -4,7 +4,9 @@ import { fileToCompressedBase64 } from '../lib/image.js'
 import { explainDocument } from '../lib/gemini.js'
 import { API_LANGUAGE_NAME } from '../i18n/strings.js'
 import { warmUpClassifier, classifyImage } from '../lib/classify.js'
-import { warmUpOcr, getOcrConfidence } from '../lib/ocr.js'
+import { warmUpOcr, getOcrConfidence, getOcrText } from '../lib/ocr.js'
+import { buildOfflineResult } from '../lib/offlineExplain.js'
+import { useOnline } from '../lib/useOnline.js'
 import Header from '../components/Header.jsx'
 import Button from '../components/Button.jsx'
 import { Camera, ImageIcon, Warning } from '../components/Icon.jsx'
@@ -27,6 +29,8 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
   const [error, setError] = useState(false)
   const [pill, setPill] = useState(null) // { state: 'analysing' } | { state: 'done', type }
   const [ocrWarning, setOcrWarning] = useState(null) // 'soft' | 'hard' | null
+  const [offlineMode, setOfflineMode] = useState(false)
+  const online = useOnline()
   const cameraRef = useRef(null)
   const galleryRef = useRef(null)
   const mounted = useRef(true)
@@ -73,6 +77,7 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
     setError(false)
     setPill(null)
     setOcrWarning(null)
+    setOfflineMode(false)
     pendingImage.current = null
 
     let img
@@ -96,6 +101,17 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
         setPill(type ? { state: 'done', type } : null)
       })
       .catch(() => mounted.current && setPill(null))
+
+    // Feature 4 — offline fallback: no internet → OCR + rule-based summary
+    // instead of Gemini. Same result schema (low confidence), so the same card
+    // renders. Pass no image so the result screen won't try to re-translate.
+    if (!online) {
+      setOfflineMode(true)
+      const ocr = await getOcrText(dataUrl, 8000)
+      if (!mounted.current) return
+      onResult(buildOfflineResult(ocr?.text || '', lang), null)
+      return
+    }
 
     // Feature 2 — OCR confidence gate (skipped if OCR is slow/unavailable → null).
     const confidence = await getOcrConfidence(dataUrl, 5000)
@@ -155,6 +171,12 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
 
         {busy ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-5 pb-16 text-center">
+            {/* Offline notice — we're building a basic summary without Gemini. */}
+            {offlineMode ? (
+              <div className="mx-auto max-w-[20rem] rounded-2xl border border-line bg-indigo-tint px-3.5 py-3 text-[14px] leading-snug text-indigo">
+                {t('offlineBanner')}
+              </div>
+            ) : null}
             {/* Soft blur warning — sits above the spinner, flow still proceeds. */}
             {ocrWarning === 'soft' ? (
               <div className="mx-auto flex max-w-[20rem] items-start gap-2.5 rounded-2xl bg-marigold-soft px-3.5 py-3 text-left">

@@ -56,3 +56,29 @@ export async function getOcrConfidence(image, timeoutMs = 5000) {
   clearTimeout(timer)
   return result
 }
+
+// Full OCR for the offline fallback: returns { text, confidence } or null on
+// failure/timeout. Same lazy, fail-safe worker as getOcrConfidence.
+export async function getOcrText(image, timeoutMs = 8000) {
+  let timer
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => resolve(null), timeoutMs)
+  })
+
+  const work = (async () => {
+    try {
+      const worker = await getWorker()
+      const { data } = await worker.recognize(image)
+      return {
+        text: data?.text || '',
+        confidence: typeof data?.confidence === 'number' ? data.confidence : null,
+      }
+    } catch {
+      return null
+    }
+  })()
+
+  const result = await Promise.race([work, timeout])
+  clearTimeout(timer)
+  return result
+}

@@ -7,6 +7,7 @@ import Button from '../components/Button.jsx'
 import ListenButton from '../components/ListenButton.jsx'
 import TrustFooter from '../components/TrustFooter.jsx'
 import { Camera, Warning, Shield } from '../components/Icon.jsx'
+import { useOnline } from '../lib/useOnline.js'
 
 function prettyDocType(s) {
   if (!s) return ''
@@ -22,8 +23,10 @@ export default function ResultScreen({
   onScanAnother,
   onAskMore,
   onLanguage,
+  readOnly = false,
 }) {
   const { t, lang } = useLanguage()
+  const online = useOnline()
 
   // Locally-held copy of the result so we can swap content in place on re-translation.
   const [liveResult, setLiveResult] = useState(result)
@@ -42,6 +45,7 @@ export default function ResultScreen({
   // When the language changes while this card is shown, re-call Gemini with the
   // same image and the new language, then swap the content in place.
   useEffect(() => {
+    if (readOnly) return // history view: never re-call Gemini
     if (!imageBase64) return
     if (lang === renderedLang.current) return
 
@@ -65,7 +69,7 @@ export default function ResultScreen({
     return () => {
       cancelled = true
     }
-  }, [lang, imageBase64, mimeType, onResultChange])
+  }, [lang, imageBase64, mimeType, onResultChange, readOnly])
 
   // Auto-dismiss the error toast after a few seconds.
   useEffect(() => {
@@ -80,6 +84,7 @@ export default function ResultScreen({
   const warnings = Array.isArray(r.warnings) ? r.warnings : []
   const isScam = r.is_possible_scam === true
   const lowConfidence = r.confidence === 'low'
+  const isOffline = r.offline === true
 
   // Text for read-aloud: title, summary, then the steps.
   const listenText = [
@@ -112,6 +117,16 @@ export default function ResultScreen({
               <span className="saral-spin h-5 w-5 rounded-full border-2 border-line border-t-marigold" />
               <span className="text-[15px] font-medium text-indigo">{t('translating')}</span>
             </div>
+          </div>
+        ) : null}
+
+        {/* Back-online banner — offline summary is now stale; offer a full re-scan. */}
+        {isOffline && online ? (
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-line bg-marigold-soft p-4">
+            <span className="text-[15px] leading-snug text-ink/80">{t('offlineBackOnline')}</span>
+            <Button variant="primary" icon={<Camera />} onClick={onScanAnother}>
+              {t('scanAgain')}
+            </Button>
           </div>
         ) : null}
 
@@ -207,14 +222,16 @@ export default function ResultScreen({
       {/* Bottom action bar — Listen + Ask more + Scan another */}
       <div className="sticky bottom-0 border-t border-line bg-surface/95 px-5 pb-6 pt-3 backdrop-blur">
         <ListenButton text={listenText} variant="primary" full />
-        <div className="mt-2.5 flex gap-3">
-          <Button variant="outline" onClick={onAskMore} className="flex-1">
-            {t('askMore')}
-          </Button>
-          <Button variant="ghost" onClick={onScanAnother} className="flex-1">
-            {t('scanAnother')}
-          </Button>
-        </div>
+        {!readOnly ? (
+          <div className="mt-2.5 flex gap-3">
+            <Button variant="outline" onClick={onAskMore} className="flex-1">
+              {t('askMore')}
+            </Button>
+            <Button variant="ghost" onClick={onScanAnother} className="flex-1">
+              {t('scanAnother')}
+            </Button>
+          </div>
+        ) : null}
         <TrustFooter className="mt-3" />
       </div>
     </div>
