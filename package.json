@@ -11,8 +11,11 @@
     "vercel-dev": "vercel dev"
   },
   "dependencies": {
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs": "^4.22.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
