@@ -7,6 +7,8 @@ import ResultScreen from './screens/ResultScreen.jsx'
 import SikhaoListScreen from './screens/SikhaoListScreen.jsx'
 import WalkthroughScreen from './screens/WalkthroughScreen.jsx'
 import AskScreen from './screens/AskScreen.jsx'
+import HistoryScreen from './screens/HistoryScreen.jsx'
+import { saveToHistory } from './lib/history.js'
 
 // Simple screen state machine — no router needed for this single-task PWA.
 function Router() {
@@ -39,6 +41,8 @@ function Router() {
           onResult={(data, image) => {
             setResult(data)
             setResultImage(image || null)
+            // Auto-save to on-device history (thumbnail generated async; non-blocking).
+            saveToHistory(data, image)
             go('result')
           }}
         />
@@ -73,6 +77,9 @@ function Router() {
         />
       )
       break
+    case 'history':
+      view = <HistoryScreen onBack={() => go('home')} onLanguage={openLanguage} />
+      break
     case 'sikhao':
       view = (
         <SikhaoListScreen
@@ -106,6 +113,7 @@ function Router() {
             go('walkthrough')
           }}
           onAsk={(q) => openAsk({ seed: q, from: 'home' })}
+          onHistory={() => go('history')}
         />
       )
   }

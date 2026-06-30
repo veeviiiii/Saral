@@ -1,8 +1,8 @@
 import { useLanguage } from '../state/LanguageContext.jsx'
-import { ArrowLeft } from './Icon.jsx'
+import { ArrowLeft, History } from './Icon.jsx'
 
 // Indigo app bar. Home shows the wordmark; sub-screens show a back button.
-export default function Header({ onBack, title, onLanguage }) {
+export default function Header({ onBack, title, onLanguage, onHistory }) {
   const { t, langLabel } = useLanguage()
 
   return (
@@ -22,6 +22,16 @@ export default function Header({ onBack, title, onLanguage }) {
       <div className="flex-1">
         {title ? <h1 className="font-display text-xl font-semibold">{title}</h1> : null}
       </div>
+
+      {onHistory ? (
+        <button
+          onClick={onHistory}
+          aria-label={t('historyTitle')}
+          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-white/15"
+        >
+          <History size={22} />
+        </button>
+      ) : null}
 
       {onLanguage ? (
         <button
