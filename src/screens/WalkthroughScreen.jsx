@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useLanguage } from '../state/LanguageContext.jsx'
+import { pickLang } from '../i18n/strings.js'
 import Header from '../components/Header.jsx'
 import Button from '../components/Button.jsx'
 import ListenButton from '../components/ListenButton.jsx'
@@ -52,17 +53,18 @@ export default function WalkthroughScreen({ flow, onBack, onLanguage }) {
   }
 
   // Read-aloud: the instruction, then the calming line, then the warning.
+  const warnText = pickLang(step.warningHint, lang)
   const listenText = [
-    step.text?.[lang],
-    step.reassurance?.[lang],
-    step.warningHint?.[lang] ? `${t('careful')}: ${step.warningHint[lang]}` : '',
+    pickLang(step.text, lang),
+    pickLang(step.reassurance, lang),
+    warnText ? `${t('careful')}: ${warnText}` : '',
   ]
     .filter(Boolean)
     .join('. ')
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header onBack={onBack} title={flow.title[lang]} onLanguage={onLanguage} />
+      <Header onBack={onBack} title={pickLang(flow.title, lang)} onLanguage={onLanguage} />
 
       <main className="flex flex-1 flex-col px-5 pt-6">
         <ProgressDots total={total} current={index} />
@@ -90,13 +92,13 @@ export default function WalkthroughScreen({ flow, onBack, onLanguage }) {
           key={index}
           className="saral-rise mx-auto mt-6 max-w-[20rem] text-center font-display text-[23px] font-semibold leading-snug text-ink"
         >
-          {step.text[lang]}
+          {pickLang(step.text, lang)}
         </p>
 
         {/* Reassurance — calming line */}
         {step.reassurance ? (
           <p className="mx-auto mt-4 max-w-[20rem] rounded-2xl bg-marigold-soft px-4 py-3 text-center text-[15px] leading-snug text-ink/80">
-            {step.reassurance[lang]}
+            {pickLang(step.reassurance, lang)}
           </p>
         ) : null}
 
@@ -106,7 +108,7 @@ export default function WalkthroughScreen({ flow, onBack, onLanguage }) {
             <Warning size={20} className="mt-0.5 shrink-0" />
             <span className="text-[14px] leading-snug text-ink/80">
               <span className="font-semibold text-caution">{t('careful')}: </span>
-              {step.warningHint[lang]}
+              {pickLang(step.warningHint, lang)}
             </span>
           </div>
         ) : null}
@@ -123,7 +125,7 @@ export default function WalkthroughScreen({ flow, onBack, onLanguage }) {
                 full
                 onClick={() => chooseBranch(opt.branch)}
               >
-                {opt.label[lang]}
+                {pickLang(opt.label, lang)}
               </Button>
             ))}
           </div>

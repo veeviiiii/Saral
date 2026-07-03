@@ -237,10 +237,10 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
             </div>
 
             <div className="flex flex-col gap-3 pb-8">
-              <Button full variant="primary" icon={<Camera />} onClick={() => cameraRef.current?.click()}>
+              <Button full variant="primary" icon={<Camera />} data-tour="capture-camera" onClick={() => cameraRef.current?.click()}>
                 {t('takePhoto')}
               </Button>
-              <Button full variant="ghost" icon={<ImageIcon />} onClick={() => galleryRef.current?.click()}>
+              <Button full variant="ghost" icon={<ImageIcon />} data-tour="capture-gallery" onClick={() => galleryRef.current?.click()}>
                 {t('chooseFromGallery')}
               </Button>
             </div>

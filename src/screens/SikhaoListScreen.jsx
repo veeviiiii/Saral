@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLanguage } from '../state/LanguageContext.jsx'
+import { pickLang } from '../i18n/strings.js'
 import { CATEGORIES } from '../content/sikhao/index.js'
 import Header from '../components/Header.jsx'
 import { ChevronRight, Plus } from '../components/Icon.jsx'
@@ -33,10 +34,10 @@ export default function SikhaoListScreen({ onBack, onOpenFlow, onLanguage }) {
 
         {categories.map((cat) => (
           <section key={cat.id} className="mb-6">
-            <div className="mb-2 flex items-center gap-2 px-1">
+            <div data-tour={`cat-${cat.id}`} className="mb-2 flex items-center gap-2 px-1">
               <span aria-hidden className="text-lg">{cat.icon}</span>
               <h2 className="text-[13px] font-bold uppercase tracking-wide text-ink/50">
-                {cat.label[lang]}
+                {pickLang(cat.label, lang)}
               </h2>
             </div>
 
@@ -49,7 +50,7 @@ export default function SikhaoListScreen({ onBack, onOpenFlow, onLanguage }) {
                   >
                     <AppBadge short={flow.short} />
                     <span className="flex-1 text-[17px] font-medium leading-snug text-ink">
-                      {flow.title[lang]}
+                      {pickLang(flow.title, lang)}
                     </span>
                     <ChevronRight className="text-ink/40" />
                   </button>
@@ -61,6 +62,7 @@ export default function SikhaoListScreen({ onBack, onOpenFlow, onLanguage }) {
 
         {/* "Something else" — visually distinct (dashed) */}
         <button
+          data-tour="something-else"
           onClick={() => setShowComingSoon(true)}
           className="flex min-h-[64px] w-full items-center gap-3.5 rounded-2xl border-2 border-dashed border-line bg-transparent p-3.5 text-left transition active:bg-surface"
         >

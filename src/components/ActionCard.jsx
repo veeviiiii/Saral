@@ -1,7 +1,7 @@
 import { ChevronRight } from './Icon.jsx'
 
 // Big home cards: Samjhao (marigold) and Sikhao (indigo-tint).
-export default function ActionCard({ variant = 'primary', icon, title, desc, onClick }) {
+export default function ActionCard({ variant = 'primary', icon, title, desc, onClick, dataTour }) {
   const tone =
     variant === 'primary'
       ? 'bg-marigold'
@@ -10,6 +10,7 @@ export default function ActionCard({ variant = 'primary', icon, title, desc, onC
   return (
     <button
       onClick={onClick}
+      data-tour={dataTour}
       className={`saral-rise flex w-full items-center gap-4 rounded-3xl p-5 text-left shadow-sm transition active:scale-[0.99] ${tone}`}
     >
       <span

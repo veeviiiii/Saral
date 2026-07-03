@@ -1,15 +1,19 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { LANGUAGES, STRINGS } from '../i18n/strings.js'
+import { LANGUAGES, STRINGS, dirForLang } from '../i18n/strings.js'
 
 const STORAGE_KEY = 'saral.lang'
 const DEFAULT_LANG = 'hi' // App opens in Hindi (SKILL.md demo flow).
+
+// A language is selectable if it's in LANGUAGES — its UI strings fall back to
+// English where a translation isn't present yet.
+const VALID_LANGS = new Set(LANGUAGES.map((l) => l.code))
 
 const LanguageContext = createContext(null)
 
 function readStoredLang() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved && STRINGS[saved]) return saved
+    if (saved && VALID_LANGS.has(saved)) return saved
   } catch {
     /* localStorage may be unavailable — ignore */
   }
@@ -26,10 +30,13 @@ export function LanguageProvider({ children }) {
       /* ignore */
     }
     document.documentElement.lang = lang
+    // Mirror the whole layout for RTL languages (Urdu). Driven by the `dir`
+    // field in the language config so adding an RTL language is config-only.
+    document.documentElement.dir = dirForLang(lang)
   }, [lang])
 
   const setLang = useCallback((code) => {
-    if (STRINGS[code]) setLangState(code)
+    if (VALID_LANGS.has(code)) setLangState(code)
   }, [])
 
   // t('key') with optional {tokens} interpolation. Falls back to English, then key.

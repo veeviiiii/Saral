@@ -11,7 +11,7 @@ import TrustFooter from '../components/TrustFooter.jsx'
 import Button from '../components/Button.jsx'
 import { Mic } from '../components/Icon.jsx'
 
-export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onLanguage, onHistory }) {
+export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onLanguage, onHistory, onReplayTour }) {
   const { t, lang, setLang } = useLanguage()
   const voice = useVoiceAutoDetect()
   const [heard, setHeard] = useState('')
@@ -63,7 +63,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header onLanguage={onLanguage} onHistory={onHistory} />
+      <Header onLanguage={onLanguage} onHistory={onHistory} onReplayTour={onReplayTour} />
 
       {/* Language-switch toast (voice auto-detection). */}
       {toast ? (
@@ -86,6 +86,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
             title={t('samjhaoTitle')}
             desc={t('samjhaoDesc')}
             onClick={onSamjhao}
+            dataTour="samjhao"
           />
           <ActionCard
             variant="secondary"
@@ -93,6 +94,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
             title={t('sikhaoTitle')}
             desc={t('sikhaoDesc')}
             onClick={onSikhao}
+            dataTour="sikhao"
           />
         </div>
 
@@ -102,6 +104,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
               variant="outline"
               onClick={handleSpeak}
               icon={<Mic />}
+              data-tour="voice"
               className={voice.listening ? 'saral-pulse' : ''}
             >
               {voice.listening ? t('listening') : t('speak')}
@@ -115,7 +118,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
         ) : null}
 
         <div className="flex-1" />
-        <TrustFooter className="pb-6" />
+        <TrustFooter className="pb-6" dataTour="trust" />
       </main>
     </div>
   )

@@ -127,3 +127,11 @@ export const Trash = (p) => (
     <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
   </Svg>
 )
+
+export const HelpCircle = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4" />
+    <path d="M12 17h.01" />
+  </Svg>
+)

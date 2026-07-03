@@ -20,13 +20,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Saral" />
 
-    <!-- Fonts: Noto Sans + its Devanagari & Bengali families (body), Baloo 2 (display).
-         The base "Noto Sans" family is Latin-only, so the script-specific families
-         are needed for Hindi/Marathi (Devanagari) and Bengali to use the web font. -->
+    <!-- Fonts: Noto Sans (Latin) + Baloo 2 (display) + one Noto family per script
+         we support. The base "Noto Sans" is Latin-only, so each script-specific
+         family is needed for the web font to apply. Google returns each family
+         with its own unicode-range, so a device only downloads the scripts it
+         actually renders. Script → family:
+           Devanagari (hi/mr/sa/ne/kok/mai) → Noto Sans Devanagari
+           Bengali (bn) + Assamese (as)     → Noto Sans Bengali
+           Tamil → Tamil · Telugu → Telugu · Kannada → Kannada
+           Malayalam → Malayalam · Gujarati → Gujarati · Punjabi → Gurmukhi
+           Odia → Oriya · Urdu (RTL) → Noto Nastaliq Urdu (a distinct Nastaliq face) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Sans+Oriya:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 

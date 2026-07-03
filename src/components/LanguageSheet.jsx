@@ -23,7 +23,8 @@ export default function LanguageSheet({ open, onClose }) {
         <h2 className="mb-3 px-1 font-display text-lg font-semibold text-indigo">
           {t('language')}
         </h2>
-        <ul className="flex flex-col gap-2">
+        {/* Scrolls once the list outgrows the sheet — 17 languages no longer fit. */}
+        <ul className="flex max-h-[60vh] flex-col gap-2 overflow-y-auto overscroll-contain pb-1">
           {LANGUAGES.map((l) => {
             const selected = l.code === lang
             return (

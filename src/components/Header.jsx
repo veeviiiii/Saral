@@ -1,8 +1,8 @@
 import { useLanguage } from '../state/LanguageContext.jsx'
-import { ArrowLeft, History } from './Icon.jsx'
+import { ArrowLeft, History, HelpCircle } from './Icon.jsx'
 
 // Indigo app bar. Home shows the wordmark; sub-screens show a back button.
-export default function Header({ onBack, title, onLanguage, onHistory }) {
+export default function Header({ onBack, title, onLanguage, onHistory, onReplayTour }) {
   const { t, langLabel } = useLanguage()
 
   return (
@@ -23,6 +23,16 @@ export default function Header({ onBack, title, onLanguage, onHistory }) {
         {title ? <h1 className="font-display text-xl font-semibold">{title}</h1> : null}
       </div>
 
+      {onReplayTour ? (
+        <button
+          onClick={onReplayTour}
+          aria-label={t('obReplay')}
+          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-white/15"
+        >
+          <HelpCircle size={22} />
+        </button>
+      ) : null}
+
       {onHistory ? (
         <button
           onClick={onHistory}
@@ -37,6 +47,7 @@ export default function Header({ onBack, title, onLanguage, onHistory }) {
         <button
           onClick={onLanguage}
           aria-label={t('language')}
+          data-tour="language"
           className="flex h-11 min-w-11 items-center gap-1 rounded-full bg-marigold-soft px-3 text-[15px] font-semibold text-indigo active:brightness-95"
         >
           <span>{langLabel}</span>

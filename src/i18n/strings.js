@@ -1,12 +1,70 @@
-// UI strings + language metadata for Saral's 4 languages.
-// Prompts to Gemini stay in English; these are the human-facing UI strings.
+// Language metadata + UI strings for Saral's 17 languages.
+//
+// The human-facing UI strings live in one JSON file per language under
+// ./locales (hi/en/mr/bn have real content; the rest are being translated —
+// mai.json is currently an English placeholder). Assembling them here keeps a
+// single STRINGS import for the rest of the app. Prompts to Gemini stay in
+// English — see API_LANGUAGE_NAME.
 
+import hi from './locales/hi.json'
+import en from './locales/en.json'
+import mr from './locales/mr.json'
+import bn from './locales/bn.json'
+import ta from './locales/ta.json'
+import te from './locales/te.json'
+import kn from './locales/kn.json'
+import ml from './locales/ml.json'
+import gu from './locales/gu.json'
+import pa from './locales/pa.json'
+import or from './locales/or.json'
+import as from './locales/as.json'
+import ur from './locales/ur.json'
+import sa from './locales/sa.json'
+import ne from './locales/ne.json'
+import kok from './locales/kok.json'
+import mai from './locales/mai.json'
+
+export const STRINGS = {
+  hi, en, mr, bn, ta, te, kn, ml, gu, pa, or, as, ur, sa, ne, kok, mai,
+}
+
+// Language config. `label` is the endonym (the language's name in its own
+// script). `dir` is the writing direction — 'rtl' only for Urdu — and drives
+// the document direction so the whole layout mirrors for RTL.
 export const LANGUAGES = [
-  { code: 'hi', label: 'हिंदी' },
-  { code: 'en', label: 'English' },
-  { code: 'mr', label: 'मराठी' },
-  { code: 'bn', label: 'বাংলা' },
+  { code: 'hi', label: 'हिंदी', dir: 'ltr' },
+  { code: 'en', label: 'English', dir: 'ltr' },
+  { code: 'mr', label: 'मराठी', dir: 'ltr' },
+  { code: 'bn', label: 'বাংলা', dir: 'ltr' },
+  { code: 'ta', label: 'தமிழ்', dir: 'ltr' },
+  { code: 'te', label: 'తెలుగు', dir: 'ltr' },
+  { code: 'kn', label: 'ಕನ್ನಡ', dir: 'ltr' },
+  { code: 'ml', label: 'മലയാളം', dir: 'ltr' },
+  { code: 'gu', label: 'ગુજરાતી', dir: 'ltr' },
+  { code: 'pa', label: 'ਪੰਜਾਬੀ', dir: 'ltr' },
+  { code: 'or', label: 'ଓଡ଼ିଆ', dir: 'ltr' },
+  { code: 'as', label: 'অসমীয়া', dir: 'ltr' },
+  { code: 'ur', label: 'اردو', dir: 'rtl' },
+  { code: 'sa', label: 'संस्कृतम्', dir: 'ltr' },
+  { code: 'ne', label: 'नेपाली', dir: 'ltr' },
+  { code: 'kok', label: 'कोंकणी', dir: 'ltr' },
+  { code: 'mai', label: 'मैथिली', dir: 'ltr' },
 ]
+
+// Right-to-left language codes, derived from the config above.
+export const RTL_LANGS = LANGUAGES.filter((l) => l.dir === 'rtl').map((l) => l.code)
+
+// Writing direction ('ltr' | 'rtl') for a code; defaults to ltr for unknowns.
+export function dirForLang(code) {
+  return LANGUAGES.find((l) => l.code === code)?.dir ?? 'ltr'
+}
+
+// Pick a per-language content field (Sikhao steps/titles), falling back to
+// English then Hindi so nothing ever renders blank while translations land.
+export function pickLang(obj, lang) {
+  if (!obj) return ''
+  return obj[lang] ?? obj.en ?? obj.hi ?? ''
+}
 
 // Full language name sent to the Gemini proxy ("Always reply in {language}").
 export const API_LANGUAGE_NAME = {
@@ -14,334 +72,46 @@ export const API_LANGUAGE_NAME = {
   en: 'English',
   mr: 'Marathi',
   bn: 'Bengali',
+  ta: 'Tamil',
+  te: 'Telugu',
+  kn: 'Kannada',
+  ml: 'Malayalam',
+  gu: 'Gujarati',
+  pa: 'Punjabi',
+  or: 'Odia',
+  as: 'Assamese',
+  ur: 'Urdu',
+  sa: 'Sanskrit',
+  ne: 'Nepali',
+  kok: 'Konkani',
+  mai: 'Maithili',
 }
 
-// SpeechSynthesis locale per language.
+// SpeechSynthesis / SpeechRecognition BCP-47 locale per language.
+//
+// Device voice coverage is uneven. Well-supported on most phones: hi, en, mr,
+// bn, ta, te, kn, ml, gu, pa. Rarely shipped: Odia (or-IN), Assamese (as-IN),
+// Nepali (ne-NP) and Urdu (ur-IN / ur-PK) — these may have no on-device voice.
+// Sanskrit, Konkani and Maithili have essentially no TTS voices, so they fall
+// back to hi-IN (all three use the Devanagari script, which the Hindi voice can
+// pronounce acceptably). When no matching voice exists the browser picks its
+// default; the Listen button already hides/degrades gracefully in that case.
 export const SPEECH_LANG = {
   hi: 'hi-IN',
   en: 'en-IN',
   mr: 'mr-IN',
   bn: 'bn-IN',
-}
-
-export const STRINGS = {
-  hi: {
-    homeHeadline: 'मैं आपकी कैसे मदद करूँ?',
-    language: 'भाषा',
-    samjhaoTitle: 'समझाओ',
-    samjhaoDesc: 'बिल, नोटिस या SMS की फोटो',
-    sikhaoTitle: 'सिखाओ',
-    sikhaoDesc: 'रोज़ के कामों के आसान कदम',
-    speak: 'बोलकर पूछें',
-    listening: 'सुन रहे हैं…',
-    youSaid: 'आपने कहा',
-    trust: 'सरल आपसे कभी PIN या OTP नहीं माँगेगा।',
-
-    captureHint: 'कैमरा कागज़ पर सीधा रखें',
-    takePhoto: 'फोटो लें',
-    chooseFromGallery: 'गैलरी से चुनें',
-    reading: 'आपका कागज़ पढ़ रहे हैं…',
-    readingWait: 'कृपया थोड़ा रुकें।',
-
-    resultEyebrow: 'यह कागज़ क्या कहता है',
-    keyFacts: 'ज़रूरी बातें',
-    whatToDo: 'क्या करें',
-    listen: 'सुनो',
-    stop: 'रोको',
-    scanAnother: 'दूसरी फोटो लें',
-    lowConfidence: 'कृपया इसे किसी भरोसेमंद व्यक्ति से जाँच लें।',
-    scamTitle: 'सावधान — यह धोखा हो सकता है',
-    scamBody: 'अपना OTP, PIN या पासवर्ड किसी को न बताएं।',
-    errorTitle: 'हम इसे पढ़ नहीं पाए',
-    errorBody: 'कृपया साफ़ और अच्छी रोशनी वाली फोटो के साथ दोबारा कोशिश करें।',
-
-    sikhaoListTitle: 'आप क्या करना चाहते हैं?',
-    somethingElse: 'कुछ और',
-    comingSoon: 'और काम जल्द आ रहे हैं।',
-    stepLabel: 'कदम {n} / {total}',
-    next: 'आगे',
-    done: 'हो गया',
-    back: 'पीछे',
-    careful: 'ध्यान दें',
-    chooseTask: 'किसी काम को चुनें',
-    askTitle: 'सरल से पूछें',
-    askIntro: 'मुझसे आसान शब्दों में कुछ भी पूछें।',
-    youAsked: 'आपने पूछा',
-    askThinking: 'सरल सोच रहा है…',
-    askError: 'माफ़ करें, अभी जवाब नहीं दे पाए। कृपया दोबारा कोशिश करें।',
-    askPlaceholder: 'अपना सवाल लिखें',
-    askSend: 'पूछें',
-    askSuggestion: 'अब मुझे क्या करना चाहिए?',
-    askMore: 'और पूछें',
-    translating: 'अनुवाद हो रहा है…',
-    translateError: 'अनुवाद नहीं हो सका, दोबारा कोशिश करें',
-    mlAnalysing: 'आपकी फोटो देख रहे हैं…',
-    mlLooksLike: 'लग रहा है: {type}',
-    mlTypeDocument: 'दस्तावेज़',
-    mlTypeLetter: 'पत्र या नोटिस',
-    mlTypeScreenshot: 'स्क्रीनशॉट',
-    mlTypeOther: 'फोटो',
-    ocrSoftWarn: 'फोटो थोड़ी धुंधली है, नतीजा कम सटीक हो सकता है',
-    ocrHardWarn: 'फोटो बहुत धुंधली है। बेहतर नतीजे के लिए दोबारा खींचें।',
-    retake: 'दोबारा खींचें',
-    tryAnyway: 'फिर भी आगे बढ़ें',
-    voiceSwitched: 'हिंदी चुनी गई',
-    offlineBanner: 'आप ऑफलाइन हैं। बेसिक जानकारी दिखा रहे हैं।',
-    offlineTitle: 'बेसिक जानकारी (ऑफलाइन)',
-    offlineSummary: 'इस कागज़ में हमें ये बातें मिलीं।',
-    offlineAction: 'पूरी जानकारी के लिए इंटरनेट से जुड़ें।',
-    offlineBackOnline: 'अब आप ऑनलाइन हैं। पूरी जानकारी के लिए दोबारा स्कैन करें।',
-    scanAgain: 'दोबारा स्कैन करें',
-    offlineLabelAmount: 'राशि',
-    offlineLabelDate: 'तारीख',
-    historyTitle: 'इतिहास',
-    historyEmpty: 'अभी कोई दस्तावेज़ नहीं',
-    clearAll: 'सब हटाएं',
-    delete: 'हटाएं',
-    historyPrivacy: 'आपका इतिहास केवल इस फोन पर है।',
-    insightDueSoon: '⚠️ {title} की देय तिथि नज़दीक है',
-    insightSpending: 'इस महीने आपने {total} के दस्तावेज़ स्कैन किए',
-    insightScam: '🚨 आपने एक संदिग्ध दस्तावेज़ स्कैन किया था — सावधान रहें',
-    insightCommon: 'आप सबसे ज़्यादा {type} स्कैन करते हैं',
-  },
-
-  en: {
-    homeHeadline: 'How can I help?',
-    language: 'Language',
-    samjhaoTitle: 'Samjhao',
-    samjhaoDesc: 'Photo of a bill, notice, or SMS',
-    sikhaoTitle: 'Sikhao',
-    sikhaoDesc: 'Easy steps for everyday tasks',
-    speak: 'Ask by voice',
-    listening: 'Listening…',
-    youSaid: 'You said',
-    trust: 'Saral will never ask for your PIN or OTP.',
-
-    captureHint: 'Hold the camera straight over the paper',
-    takePhoto: 'Take a photo',
-    chooseFromGallery: 'Choose from gallery',
-    reading: 'Reading your paper…',
-    readingWait: 'This takes a moment.',
-
-    resultEyebrow: 'What this paper says',
-    keyFacts: 'Important points',
-    whatToDo: 'What to do',
-    listen: 'Listen',
-    stop: 'Stop',
-    scanAnother: 'Scan another photo',
-    lowConfidence: 'Please double-check this with someone you trust.',
-    scamTitle: 'Careful — this may be a scam',
-    scamBody: 'Never share your OTP, PIN, or password with anyone.',
-    errorTitle: 'We could not read it',
-    errorBody: 'Please try again with a clear, well-lit photo.',
-
-    sikhaoListTitle: 'What do you want to do?',
-    somethingElse: 'Something else',
-    comingSoon: 'More tasks are coming soon.',
-    stepLabel: 'Step {n} of {total}',
-    next: 'Next',
-    done: 'Done',
-    back: 'Back',
-    careful: 'Watch out',
-    chooseTask: 'Pick a task',
-    askTitle: 'Ask Saral',
-    askIntro: 'Ask me anything in simple words.',
-    youAsked: 'You asked',
-    askThinking: 'Saral is thinking…',
-    askError: 'Sorry, I could not answer just now. Please try again.',
-    askPlaceholder: 'Type your question',
-    askSend: 'Ask',
-    askSuggestion: 'What should I do now?',
-    askMore: 'Ask more',
-    translating: 'Translating…',
-    translateError: 'Could not translate, please try again',
-    mlAnalysing: 'Analysing your photo…',
-    mlLooksLike: 'Looks like: {type}',
-    mlTypeDocument: 'a document',
-    mlTypeLetter: 'a letter or notice',
-    mlTypeScreenshot: 'a screenshot',
-    mlTypeOther: 'a photo',
-    ocrSoftWarn: 'Photo is a little blurry — result may be less accurate',
-    ocrHardWarn: 'Photo is too blurry for a good result. Try taking it again.',
-    retake: 'Retake',
-    tryAnyway: 'Try anyway',
-    voiceSwitched: 'Switched to English',
-    offlineBanner: "You're offline. Showing a basic summary.",
-    offlineTitle: 'Basic summary (offline)',
-    offlineSummary: 'We found the following details in this document.',
-    offlineAction: 'Connect to internet for a full explanation.',
-    offlineBackOnline: "You're back online. Scan again for a full explanation.",
-    scanAgain: 'Scan again',
-    offlineLabelAmount: 'Amount',
-    offlineLabelDate: 'Date',
-    historyTitle: 'History',
-    historyEmpty: 'No documents yet',
-    clearAll: 'Clear all',
-    delete: 'Delete',
-    historyPrivacy: 'Your history stays on this device only.',
-    insightDueSoon: '⚠️ {title} is due soon',
-    insightSpending: "You've scanned documents worth {total} this month",
-    insightScam: '🚨 You scanned a suspicious document recently — stay alert',
-    insightCommon: 'You scan {type} most often',
-  },
-
-  mr: {
-    homeHeadline: 'मी तुमची कशी मदत करू?',
-    language: 'भाषा',
-    samjhaoTitle: 'समजावा',
-    samjhaoDesc: 'बिल, नोटीस किंवा SMS चा फोटो',
-    sikhaoTitle: 'शिकवा',
-    sikhaoDesc: 'रोजच्या कामांसाठी सोपी पावले',
-    speak: 'बोलून विचारा',
-    listening: 'ऐकत आहोत…',
-    youSaid: 'तुम्ही म्हणालात',
-    trust: 'सरल तुमचा PIN किंवा OTP कधीही विचारणार नाही.',
-
-    captureHint: 'कॅमेरा कागदावर सरळ धरा',
-    takePhoto: 'फोटो काढा',
-    chooseFromGallery: 'गॅलरीतून निवडा',
-    reading: 'तुमचा कागद वाचत आहोत…',
-    readingWait: 'कृपया थोडा वेळ थांबा.',
-
-    resultEyebrow: 'हा कागद काय सांगतो',
-    keyFacts: 'महत्त्वाच्या गोष्टी',
-    whatToDo: 'काय करावे',
-    listen: 'ऐका',
-    stop: 'थांबा',
-    scanAnother: 'दुसरा फोटो घ्या',
-    lowConfidence: 'कृपया हे एखाद्या विश्वासू व्यक्तीकडून तपासा.',
-    scamTitle: 'सावध — ही फसवणूक असू शकते',
-    scamBody: 'तुमचा OTP, PIN किंवा पासवर्ड कोणालाही सांगू नका.',
-    errorTitle: 'आम्हाला हे वाचता आले नाही',
-    errorBody: 'कृपया स्पष्ट आणि उजेड असलेल्या फोटोसह पुन्हा प्रयत्न करा.',
-
-    sikhaoListTitle: 'तुम्हाला काय करायचे आहे?',
-    somethingElse: 'आणखी काही',
-    comingSoon: 'आणखी कामे लवकरच येत आहेत.',
-    stepLabel: 'पायरी {n} / {total}',
-    next: 'पुढे',
-    done: 'झाले',
-    back: 'मागे',
-    careful: 'लक्ष द्या',
-    chooseTask: 'एखादे काम निवडा',
-    askTitle: 'सरलला विचारा',
-    askIntro: 'मला सोप्या शब्दांत काहीही विचारा.',
-    youAsked: 'तुम्ही विचारले',
-    askThinking: 'सरल विचार करत आहे…',
-    askError: 'माफ करा, आत्ता उत्तर देता आले नाही. कृपया पुन्हा प्रयत्न करा.',
-    askPlaceholder: 'तुमचा प्रश्न लिहा',
-    askSend: 'विचारा',
-    askSuggestion: 'आता मी काय करावे?',
-    askMore: 'अधिक विचारा',
-    translating: 'भाषांतर होत आहे…',
-    translateError: 'भाषांतर झाले नाही, पुन्हा प्रयत्न करा',
-    mlAnalysing: 'तुमचा फोटो पाहत आहोत…',
-    mlLooksLike: 'वाटते: {type}',
-    mlTypeDocument: 'एक कागद',
-    mlTypeLetter: 'पत्र किंवा नोटीस',
-    mlTypeScreenshot: 'स्क्रीनशॉट',
-    mlTypeOther: 'एक फोटो',
-    ocrSoftWarn: 'फोटो थोडी अस्पष्ट आहे, निकाल कमी अचूक असू शकतो',
-    ocrHardWarn: 'फोटो खूप अस्पष्ट आहे. पुन्हा काढा.',
-    retake: 'पुन्हा काढा',
-    tryAnyway: 'तरीही पुढे जा',
-    voiceSwitched: 'मराठी निवडली',
-    offlineBanner: 'तुम्ही ऑफलाइन आहात. मूलभूत माहिती दाखवत आहे.',
-    offlineTitle: 'मूलभूत माहिती (ऑफलाइन)',
-    offlineSummary: 'या कागदात आम्हाला पुढील तपशील मिळाले.',
-    offlineAction: 'पूर्ण माहितीसाठी इंटरनेटशी कनेक्ट करा.',
-    offlineBackOnline: 'तुम्ही आता ऑनलाइन आहात. पूर्ण माहितीसाठी पुन्हा स्कॅन करा.',
-    scanAgain: 'पुन्हा स्कॅन करा',
-    offlineLabelAmount: 'रक्कम',
-    offlineLabelDate: 'तारीख',
-    historyTitle: 'इतिहास',
-    historyEmpty: 'अजून कोणतेही कागद नाहीत',
-    clearAll: 'सर्व हटवा',
-    delete: 'हटवा',
-    historyPrivacy: 'तुमचा इतिहास फक्त या फोनवर आहे.',
-    insightDueSoon: '⚠️ {title} ची देय तारीख जवळ आहे',
-    insightSpending: 'या महिन्यात तुम्ही {total} चे कागद स्कॅन केले',
-    insightScam: '🚨 तुम्ही एक संशयास्पद कागद स्कॅन केला होता — सावध राहा',
-    insightCommon: 'तुम्ही सर्वात जास्त {type} स्कॅन करता',
-  },
-
-  bn: {
-    homeHeadline: 'আমি কীভাবে সাহায্য করতে পারি?',
-    language: 'ভাষা',
-    samjhaoTitle: 'বোঝান',
-    samjhaoDesc: 'বিল, নোটিশ বা SMS-এর ছবি',
-    sikhaoTitle: 'শেখান',
-    sikhaoDesc: 'প্রতিদিনের কাজের সহজ ধাপ',
-    speak: 'বলে জিজ্ঞাসা করুন',
-    listening: 'শুনছি…',
-    youSaid: 'আপনি বললেন',
-    trust: 'সরল কখনও আপনার PIN বা OTP চাইবে না।',
-
-    captureHint: 'ক্যামেরা কাগজের উপর সোজা ধরুন',
-    takePhoto: 'ছবি তুলুন',
-    chooseFromGallery: 'গ্যালারি থেকে বেছে নিন',
-    reading: 'আপনার কাগজ পড়ছি…',
-    readingWait: 'একটু সময় লাগবে।',
-
-    resultEyebrow: 'এই কাগজ কী বলছে',
-    keyFacts: 'গুরুত্বপূর্ণ তথ্য',
-    whatToDo: 'কী করবেন',
-    listen: 'শোনো',
-    stop: 'থামুন',
-    scanAnother: 'আরেকটি ছবি নিন',
-    lowConfidence: 'অনুগ্রহ করে এটি বিশ্বস্ত কারও সাথে যাচাই করুন।',
-    scamTitle: 'সাবধান — এটি প্রতারণা হতে পারে',
-    scamBody: 'কাউকে আপনার OTP, PIN বা পাসওয়ার্ড দেবেন না।',
-    errorTitle: 'আমরা এটি পড়তে পারিনি',
-    errorBody: 'অনুগ্রহ করে একটি পরিষ্কার, ভালো আলোর ছবি দিয়ে আবার চেষ্টা করুন।',
-
-    sikhaoListTitle: 'আপনি কী করতে চান?',
-    somethingElse: 'অন্য কিছু',
-    comingSoon: 'আরও কাজ শীঘ্রই আসছে।',
-    stepLabel: 'ধাপ {n} / {total}',
-    next: 'পরবর্তী',
-    done: 'সম্পন্ন',
-    back: 'পিছনে',
-    careful: 'খেয়াল রাখুন',
-    chooseTask: 'একটি কাজ বেছে নিন',
-    askTitle: 'সরলকে জিজ্ঞাসা করুন',
-    askIntro: 'আমাকে সহজ কথায় যা খুশি জিজ্ঞাসা করুন।',
-    youAsked: 'আপনি জিজ্ঞাসা করেছেন',
-    askThinking: 'সরল ভাবছে…',
-    askError: 'দুঃখিত, এখন উত্তর দিতে পারিনি। আবার চেষ্টা করুন।',
-    askPlaceholder: 'আপনার প্রশ্ন লিখুন',
-    askSend: 'জিজ্ঞাসা',
-    askSuggestion: 'এখন আমার কী করা উচিত?',
-    askMore: 'আরও জিজ্ঞাসা',
-    translating: 'অনুবাদ হচ্ছে…',
-    translateError: 'অনুবাদ হয়নি, আবার চেষ্টা করুন',
-    mlAnalysing: 'আপনার ছবি দেখছি…',
-    mlLooksLike: 'মনে হচ্ছে: {type}',
-    mlTypeDocument: 'একটি নথি',
-    mlTypeLetter: 'একটি চিঠি',
-    mlTypeScreenshot: 'স্ক্রিনশট',
-    mlTypeOther: 'একটি ছবি',
-    ocrSoftWarn: 'ছবিটি একটু ঝাপসা — ফলাফল কম নির্ভুল হতে পারে',
-    ocrHardWarn: 'ছবিটি অনেক বেশি ঝাপসা। আবার তুলুন।',
-    retake: 'আবার তুলুন',
-    tryAnyway: 'তবুও চেষ্টা করুন',
-    voiceSwitched: 'বাংলা বেছে নেওয়া হয়েছে',
-    offlineBanner: 'আপনি অফলাইনে আছেন। মূল তথ্য দেখানো হচ্ছে।',
-    offlineTitle: 'মূল তথ্য (অফলাইন)',
-    offlineSummary: 'এই নথিতে আমরা নিচের তথ্যগুলো পেয়েছি।',
-    offlineAction: 'সম্পূর্ণ ব্যাখ্যার জন্য ইন্টারনেটে সংযুক্ত হন।',
-    offlineBackOnline: 'আপনি আবার অনলাইনে আছেন। সম্পূর্ণ তথ্যের জন্য আবার স্ক্যান করুন।',
-    scanAgain: 'আবার স্ক্যান করুন',
-    offlineLabelAmount: 'পরিমাণ',
-    offlineLabelDate: 'তারিখ',
-    historyTitle: 'ইতিহাস',
-    historyEmpty: 'এখনও কোনো নথি নেই',
-    clearAll: 'সব মুছুন',
-    delete: 'মুছুন',
-    historyPrivacy: 'আপনার ইতিহাস শুধুমাত্র এই ডিভাইসে আছে।',
-    insightDueSoon: '⚠️ {title} এর নির্ধারিত তারিখ কাছে',
-    insightSpending: 'এই মাসে আপনি {total} এর নথি স্ক্যান করেছেন',
-    insightScam: '🚨 আপনি সম্প্রতি একটি সন্দেহজনক নথি স্ক্যান করেছেন — সতর্ক থাকুন',
-    insightCommon: 'আপনি সবচেয়ে বেশি {type} স্ক্যান করেন',
-  },
+  ta: 'ta-IN',
+  te: 'te-IN',
+  kn: 'kn-IN',
+  ml: 'ml-IN',
+  gu: 'gu-IN',
+  pa: 'pa-IN',
+  or: 'or-IN', // Odia — device voice rare
+  as: 'as-IN', // Assamese — device voice rare
+  ur: 'ur-IN', // Urdu — may need ur-PK on some devices; often unsupported
+  sa: 'hi-IN', // Sanskrit — no voice; read via Hindi (shared Devanagari)
+  ne: 'ne-NP', // Nepali — device voice rare
+  kok: 'hi-IN', // Konkani — no voice; read via Hindi (shared Devanagari)
+  mai: 'hi-IN', // Maithili — no voice; read via Hindi (shared Devanagari)
 }
