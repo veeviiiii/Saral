@@ -7,6 +7,14 @@
 // Flash tier per SKILL.md. gemini-1.5-flash is retired; this is the current
 // stable Flash. Swap to 'gemini-flash-latest' (always-current) or a newer
 // pin like 'gemini-3.5-flash' if you want — it's the only line to change.
+import { rateLimit } from './_ratelimit.js'
+import {
+  allowedOrigin,
+  sanitizeLanguage,
+  IMAGE_MIME_ALLOWLIST,
+  MAX_IMAGE_B64,
+} from './_validate.js'
+
 const MODEL = 'gemini-2.5-flash'
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`
 
@@ -61,6 +69,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' })
   }
 
+  // Cap how fast one IP can spend our Gemini quota (unauthenticated endpoint).
+  if (!rateLimit(req, res)) return
+
+  // Only accept requests that look like they came from the Saral frontend.
+  if (!allowedOrigin(req)) {
+    return res.status(403).json({ error: 'Forbidden.' })
+  }
+
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey || apiKey === 'placeholder') {
     return res.status(500).json({
@@ -77,8 +93,17 @@ export default async function handler(req, res) {
       .status(400)
       .json({ error: 'imageBase64 and mimeType are required.' })
   }
+  // Reject non-image types before spending a Gemini call.
+  if (!IMAGE_MIME_ALLOWLIST.has(String(mimeType).toLowerCase())) {
+    return res.status(400).json({ error: 'Unsupported image type.' })
+  }
+  // Bound per-call cost: reject oversized payloads instead of forwarding them.
+  if (typeof imageBase64 !== 'string' || imageBase64.length > MAX_IMAGE_B64) {
+    return res.status(413).json({ error: 'Image is too large. Use a smaller photo.' })
+  }
 
-  const lang = (language && String(language).trim()) || 'English'
+  // Restrict the language to a known name (it goes into the system prompt).
+  const lang = sanitizeLanguage(language)
 
   const systemPrompt =
     `You are Saral, a calm friendly helper for someone with low digital literacy ` +

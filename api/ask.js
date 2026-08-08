@@ -2,6 +2,9 @@
 // Same persona + safety rules as the Samjhao proxy: text in, plain text out.
 // Powers the result-screen "Ask more" (with document context) and voice "ask anything".
 
+import { rateLimit } from './_ratelimit.js'
+import { allowedOrigin, sanitizeLanguage } from './_validate.js'
+
 const MODEL = 'gemini-2.5-flash'
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`
 
@@ -9,6 +12,14 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).json({ error: 'Method not allowed. Use POST.' })
+  }
+
+  // Cap how fast one IP can spend our Gemini quota (unauthenticated endpoint).
+  if (!rateLimit(req, res)) return
+
+  // Only accept requests that look like they came from the Saral frontend.
+  if (!allowedOrigin(req)) {
+    return res.status(403).json({ error: 'Forbidden.' })
   }
 
   const apiKey = process.env.GEMINI_API_KEY
@@ -24,7 +35,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'question is required.' })
   }
 
-  const lang = (language && String(language).trim()) || 'English'
+  const lang = sanitizeLanguage(language)
 
   const systemPrompt =
     `You are Saral, a calm friendly helper for someone with low digital literacy ` +
