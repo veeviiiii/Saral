@@ -41,11 +41,11 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
   useEffect(() => {
     mounted.current = true
     warmUpClassifier()
-    warmUpOcr()
+    warmUpOcr(lang) // also pulls this language's traineddata into the SW cache
     return () => {
       mounted.current = false
     }
-  }, [])
+  }, [lang])
 
   // Send the document to Gemini and hand the result (plus image) up.
   async function runGemini(img) {
@@ -107,14 +107,14 @@ export default function CaptureScreen({ onBack, onResult, onLanguage }) {
     // renders. Pass no image so the result screen won't try to re-translate.
     if (!online) {
       setOfflineMode(true)
-      const ocr = await getOcrText(dataUrl, 8000)
+      const ocr = await getOcrText(dataUrl, 8000, lang)
       if (!mounted.current) return
       onResult(buildOfflineResult(ocr?.text || '', lang), null)
       return
     }
 
     // Feature 2 — OCR confidence gate (skipped if OCR is slow/unavailable → null).
-    const confidence = await getOcrConfidence(dataUrl, 5000)
+    const confidence = await getOcrConfidence(dataUrl, 5000, lang)
     if (!mounted.current) return
 
     if (confidence !== null && confidence < OCR_HARD) {

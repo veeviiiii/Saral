@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "serve:prod": "vite build && node scripts/serve-dist.mjs",
     "vercel-dev": "vercel dev",
     "translate": "node scripts/translate.js"
   },
