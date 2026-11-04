@@ -27,7 +27,7 @@ export default function OnboardingLanguageScreen({ onSelect }) {
               type="button"
               data-lang={l.code}
               onClick={() => onSelect(l.code)}
-              className="flex min-h-[56px] items-center justify-center rounded-2xl border-2 border-marigold bg-white px-2 text-center text-[19px] font-semibold text-indigo shadow-sm transition active:scale-[0.99] active:bg-marigold-soft"
+              className="flex min-h-[56px] items-center justify-center rounded-2xl border-2 border-marigold bg-card px-2 text-center text-[19px] font-semibold text-indigo shadow-sm transition active:scale-[0.99] active:bg-marigold-soft"
             >
               {l.label}
             </button>

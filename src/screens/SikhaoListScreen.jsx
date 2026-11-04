@@ -46,7 +46,7 @@ export default function SikhaoListScreen({ onBack, onOpenFlow, onLanguage }) {
                 <li key={flow.id}>
                   <button
                     onClick={() => onOpenFlow(flow)}
-                    className="flex min-h-[64px] w-full items-center gap-3.5 rounded-2xl border border-line bg-white p-3.5 text-left shadow-sm transition active:bg-surface"
+                    className="flex min-h-[64px] w-full items-center gap-3.5 rounded-2xl border border-line bg-card p-3.5 text-left shadow-sm transition active:bg-surface"
                   >
                     <AppBadge short={flow.short} />
                     <span className="flex-1 text-[17px] font-medium leading-snug text-ink">

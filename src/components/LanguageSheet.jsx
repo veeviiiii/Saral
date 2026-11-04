@@ -16,7 +16,7 @@ export default function LanguageSheet({ open, onClose }) {
       aria-label={t('language')}
     >
       <div
-        className="saral-sheet-up w-full max-w-[412px] rounded-t-3xl bg-white p-4 pb-7"
+        className="saral-sheet-up w-full max-w-[412px] rounded-t-3xl bg-card p-4 pb-7"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-line" />
@@ -37,7 +37,7 @@ export default function LanguageSheet({ open, onClose }) {
                   className={`flex min-h-[56px] w-full items-center justify-between rounded-2xl border-2 px-4 text-[18px] font-medium transition ${
                     selected
                       ? 'border-marigold bg-marigold-soft text-ink'
-                      : 'border-line bg-white text-ink active:bg-surface'
+                      : 'border-line bg-card text-ink active:bg-surface'
                   }`}
                 >
                   <span>{l.label}</span>

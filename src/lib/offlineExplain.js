@@ -24,6 +24,11 @@ import { STRINGS } from '../i18n/strings.js'
 // comma — digit groups must start with a digit after each comma).
 const AMOUNT_RE =
   /(?:₹|Rs\.?|INR)\s?\d+(?:,\d+)*(?:\.\d{1,2})?(?:\s?(?:lakh|lac|crore|cr\b))?/i
+// A bill lists its line items *before* the total, so the first currency figure
+// on the page is usually a component charge, not what the user has to pay.
+// Prefer a figure introduced by a total-ish label when one is present.
+const TOTAL_AMOUNT_RE =
+  /(?:total|payable|amount\s+due|grand\s+total|net\s+amount|कुल|देय|মোট|மொத்தம்|మొత్తం|કુલ|ಒಟ್ಟು)[^\n]{0,25}?((?:₹|Rs\.?|INR)\s?\d+(?:,\d+)*(?:\.\d{1,2})?)/i
 // "Total due: 1,250" — label + comma-grouped number (comma required so a bare
 // "15" out of a date can never be mistaken for money).
 const AMOUNT_LABELLED_RE =
@@ -107,7 +112,12 @@ function guessBillerFromTopLines(raw) {
 function extractFields(raw, lower) {
   const fields = {}
 
-  const amount = raw.match(AMOUNT_RE)?.[0] ?? raw.match(AMOUNT_LABELLED_RE)?.[1]
+  // Labelled total wins; otherwise fall back to the first figure on the page
+  // (correct for SMS, where "debited by Rs 500" precedes the running balance).
+  const amount =
+    raw.match(TOTAL_AMOUNT_RE)?.[1] ??
+    raw.match(AMOUNT_RE)?.[0] ??
+    raw.match(AMOUNT_LABELLED_RE)?.[1]
   if (amount) fields.amount = amount.trim()
 
   const date = raw.match(DATE_NUMERIC_RE) || raw.match(DATE_MONTH_RE)

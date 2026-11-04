@@ -113,7 +113,7 @@ export default function ResultScreen({
         {/* Inline re-translation overlay — subtle, stays on the same card. */}
         {translating ? (
           <div className="absolute inset-0 z-10 flex items-start justify-center bg-surface/70 pt-24 backdrop-blur-[2px]">
-            <div className="flex items-center gap-2.5 rounded-full border border-line bg-white px-4 py-2.5 shadow-sm">
+            <div className="flex items-center gap-2.5 rounded-full border border-line bg-card px-4 py-2.5 shadow-sm">
               <span className="saral-spin h-5 w-5 rounded-full border-2 border-line border-t-marigold" />
               <span className="text-[15px] font-medium text-indigo">{t('translating')}</span>
             </div>
@@ -122,7 +122,7 @@ export default function ResultScreen({
 
         {/* Back-online banner — offline summary is now stale; offer a full re-scan. */}
         {isOffline && online ? (
-          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-line bg-marigold-soft p-4">
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border-l-4 border-marigold bg-card p-4">
             <span className="text-[15px] leading-snug text-ink/80">{t('offlineBackOnline')}</span>
             <Button variant="primary" icon={<Camera />} onClick={onScanAnother}>
               {t('scanAgain')}
@@ -165,7 +165,7 @@ export default function ResultScreen({
             </h3>
             <div className="grid grid-cols-2 gap-2.5">
               {keyFacts.map((f, i) => (
-                <div key={i} className="rounded-2xl border border-line bg-white p-3">
+                <div key={i} className="rounded-2xl border border-line bg-card p-3">
                   <div className="text-[12px] text-ink/55">{f?.label}</div>
                   <div className="mt-0.5 text-[18px] font-bold tabular-nums leading-snug text-ink">
                     {f?.value}
@@ -185,7 +185,7 @@ export default function ResultScreen({
             <ol className="flex flex-col gap-3">
               {whatToDo.map((step, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-marigold text-[15px] font-bold text-ink">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-marigold text-[15px] font-bold text-on-accent">
                     {i + 1}
                   </span>
                   <span className="text-[17px] leading-snug text-ink">{step}</span>
@@ -212,7 +212,7 @@ export default function ResultScreen({
 
         {/* Low-confidence nudge — keep a human in the loop */}
         {lowConfidence ? (
-          <div className="mt-6 flex items-start gap-2.5 rounded-2xl border border-line bg-white p-3">
+          <div className="mt-6 flex items-start gap-2.5 rounded-2xl border border-line bg-card p-3">
             <Shield size={20} className="mt-0.5 shrink-0 text-indigo" />
             <span className="text-[15px] leading-snug text-ink/75">{t('lowConfidence')}</span>
           </div>

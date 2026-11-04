@@ -97,7 +97,7 @@ export default function WalkthroughScreen({ flow, onBack, onLanguage }) {
 
         {/* Reassurance — calming line */}
         {step.reassurance ? (
-          <p className="mx-auto mt-4 max-w-[20rem] rounded-2xl bg-marigold-soft px-4 py-3 text-center text-[15px] leading-snug text-ink/80">
+          <p className="mx-auto mt-4 max-w-[20rem] rounded-2xl border-l-4 border-marigold bg-card px-4 py-3 text-[15px] leading-snug text-ink/85">
             {pickLang(step.reassurance, lang)}
           </p>
         ) : null}

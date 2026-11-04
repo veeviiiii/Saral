@@ -74,7 +74,7 @@ export default function AskScreen({ context, seedQuestion, onBack, onLanguage })
               <p className="text-[15px] leading-snug text-ink/80">{t('askError')}</p>
             </div>
           ) : answer ? (
-            <div className="saral-rise rounded-2xl border border-line bg-white p-4">
+            <div className="saral-rise rounded-2xl border border-line bg-card p-4">
               <p className="text-[17px] leading-relaxed text-ink">{answer}</p>
               <div className="mt-3">
                 <ListenButton text={answer} variant="ghost" />
@@ -83,7 +83,7 @@ export default function AskScreen({ context, seedQuestion, onBack, onLanguage })
           ) : (
             <button
               onClick={() => submit(t('askSuggestion'))}
-              className="rounded-full border border-line bg-white px-4 py-2.5 text-[15px] font-medium text-indigo active:bg-surface"
+              className="rounded-full border border-line bg-card px-4 py-2.5 text-[15px] font-medium text-indigo active:bg-surface"
             >
               {t('askSuggestion')}
             </button>
@@ -110,7 +110,7 @@ export default function AskScreen({ context, seedQuestion, onBack, onLanguage })
               if (e.key === 'Enter') submit()
             }}
             placeholder={t('askPlaceholder')}
-            className="min-h-[48px] flex-1 rounded-2xl border border-line bg-white px-4 text-[16px] text-ink outline-none focus:border-marigold"
+            className="min-h-[48px] flex-1 rounded-2xl border border-line bg-card px-4 text-[16px] text-ink outline-none focus:border-marigold"
           />
           <Button
             variant="primary"

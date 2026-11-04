@@ -48,9 +48,15 @@ const DEFAULT_BACKOFF_MS = 30000 // wait after a 429 when the API gives no retry
 const MAX_BACKOFF_MS = 60000
 const FORCE = process.env.FORCE === '1' // re-translate even if an output file exists
 
-// Target languages to generate. English + the original hi/mr/bn are left alone;
-// Sanskrit (sa) already has real translations and isn't in scope.
+// Every language we ship except English. By default only *missing* keys are
+// filled, so the hand-written hi/mr/bn/sa translations stay exactly as they are
+// and newly-added strings get picked up automatically. FORCE=1 re-translates
+// everything from scratch.
 const TARGETS = [
+  { code: 'hi', name: 'Hindi' },
+  { code: 'mr', name: 'Marathi' },
+  { code: 'bn', name: 'Bengali' },
+  { code: 'sa', name: 'Sanskrit' },
   { code: 'te', name: 'Telugu' },
   { code: 'ta', name: 'Tamil' },
   { code: 'gu', name: 'Gujarati' },
@@ -205,15 +211,27 @@ async function translateCatalog(apiKey, languageName, source) {
   throw lastErr
 }
 
-// A target is "done" if its file exists and already has every source key.
-function isComplete(outPath, source) {
-  if (!existsSync(outPath)) return false
+// Whatever is already translated for this language ({} if the file is new or
+// unreadable).
+function readExisting(outPath) {
+  if (!existsSync(outPath)) return {}
   try {
-    const existing = JSON.parse(readFileSync(outPath, 'utf8'))
-    return Object.keys(source).every((k) => typeof existing[k] === 'string')
+    const parsed = JSON.parse(readFileSync(outPath, 'utf8'))
+    return parsed && typeof parsed === 'object' ? parsed : {}
   } catch {
-    return false
+    return {}
   }
+}
+
+// The subset of the source still needing translation. Adding new strings to
+// en.json therefore costs one small request per language instead of redoing the
+// whole file — which also keeps hand-written translations untouched.
+function missingSubset(source, existing) {
+  const out = {}
+  for (const [k, v] of Object.entries(source)) {
+    if (typeof existing[k] !== 'string' || !existing[k].trim()) out[k] = v
+  }
+  return out
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -242,16 +260,28 @@ async function main() {
 
     for (const { code, name } of TARGETS) {
       const outPath = rel(`${job.dir}/${code}.json`)
-      if (!FORCE && isComplete(outPath, source)) {
-        console.log(`• ${name} (${code}) — already done, skipping.`)
+      const existing = FORCE ? {} : readExisting(outPath)
+      const todo = FORCE ? source : missingSubset(source, existing)
+      const todoCount = Object.keys(todo).length
+
+      if (!todoCount) {
+        console.log(`• ${name} (${code}) — already complete, skipping.`)
         results.push({ job: job.label, code, name, ok: true, skipped: true })
         continue
       }
 
-      process.stdout.write(`Translating to ${name} (${code})... `)
+      const scope = todoCount === Object.keys(source).length ? 'all' : `${todoCount} new`
+      process.stdout.write(`Translating to ${name} (${code}) [${scope}]... `)
       try {
-        const out = await translateCatalog(apiKey, name, source)
-        writeFileSync(outPath, JSON.stringify(out, null, 2) + '\n', 'utf8')
+        const fresh = await translateCatalog(apiKey, name, todo)
+        // Merge over what was already there, in en.json's key order so the
+        // files stay stable and diff-friendly.
+        const merged = {}
+        for (const k of Object.keys(source)) {
+          const value = fresh[k] ?? existing[k]
+          if (typeof value === 'string') merged[k] = value
+        }
+        writeFileSync(outPath, JSON.stringify(merged, null, 2) + '\n', 'utf8')
         console.log('done.')
         results.push({ job: job.label, code, name, ok: true })
         await sleep(DELAY_MS)

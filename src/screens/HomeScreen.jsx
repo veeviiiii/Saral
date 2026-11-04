@@ -68,7 +68,7 @@ export default function HomeScreen({ onSamjhao, onSikhao, onOpenFlow, onAsk, onL
       {/* Language-switch toast (voice auto-detection). */}
       {toast ? (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex justify-center px-5">
-          <div className="saral-rise rounded-full bg-indigo px-4 py-2.5 text-[14px] font-medium text-white shadow-md">
+          <div className="saral-rise rounded-full bg-indigo-deep px-4 py-2.5 text-[14px] font-medium text-white shadow-md">
             {toast}
           </div>
         </div>

@@ -249,7 +249,7 @@ export default function OnboardingWalkthrough({ steps = TOUR_STEPS, screen, onNa
             pointerEvents: 'auto',
             transition: 'top 0.3s ease, left 0.3s ease',
           }}
-          className="rounded-2xl bg-white p-4 shadow-xl"
+          className="rounded-2xl bg-card p-4 shadow-xl"
         >
           <div className="mb-2 flex items-center justify-between gap-2">
             <span className="text-[13px] font-semibold text-ink/50">
@@ -270,7 +270,7 @@ export default function OnboardingWalkthrough({ steps = TOUR_STEPS, screen, onNa
           <button
             type="button"
             onClick={() => (isLast ? finish() : setIndex((i) => i + 1))}
-            className="mt-4 min-h-[48px] w-full rounded-2xl bg-marigold text-[17px] font-semibold text-ink shadow-sm active:brightness-95"
+            className="mt-4 min-h-[48px] w-full rounded-2xl bg-marigold text-[17px] font-semibold text-on-accent shadow-sm active:brightness-95"
           >
             {buttonLabel}
           </button>

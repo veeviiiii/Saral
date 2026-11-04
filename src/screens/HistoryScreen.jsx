@@ -14,8 +14,8 @@ function insightClass(severity) {
   if (severity === 'danger')
     return 'rounded-2xl border border-caution bg-caution-soft px-4 py-3 text-[15px] leading-snug text-caution'
   if (severity === 'warn')
-    return 'rounded-2xl bg-marigold-soft px-4 py-3 text-[15px] leading-snug text-ink/85'
-  return 'rounded-2xl border border-line bg-white px-4 py-3 text-[15px] leading-snug text-ink/80'
+    return 'rounded-2xl border-l-4 border-marigold bg-card px-4 py-3 text-[15px] leading-snug text-ink/85'
+  return 'rounded-2xl border border-line bg-card px-4 py-3 text-[15px] leading-snug text-ink/80'
 }
 
 export default function HistoryScreen({ onBack, onLanguage }) {
@@ -104,7 +104,7 @@ export default function HistoryScreen({ onBack, onLanguage }) {
             {items.map((it) => (
               <li
                 key={it.id}
-                className="relative flex items-center rounded-2xl border border-line bg-white"
+                className="relative flex items-center rounded-2xl border border-line bg-card"
               >
                 <button
                   onClick={() => openRow(it)}
@@ -163,7 +163,7 @@ export default function HistoryScreen({ onBack, onLanguage }) {
                     <button
                       aria-label="cancel"
                       onClick={() => setPendingDelete(null)}
-                      className="flex h-9 w-9 items-center justify-center rounded-full text-ink/50 active:bg-white/60"
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-ink/50 active:bg-card/60"
                     >
                       <Plus size={20} className="rotate-45" />
                     </button>

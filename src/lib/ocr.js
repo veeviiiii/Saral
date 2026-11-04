@@ -10,22 +10,29 @@
 // Everything is lazy + fail-safe: if the worker can't load or is slow, callers
 // get null and just skip the feature.
 
-// Base scripts always loaded: Latin (eng), Devanagari (hin — also covers
-// Marathi/Sanskrit/Nepali/Konkani/Maithili), Bengali (ben — also Assamese).
-const BASE_LANGS = ['eng', 'hin', 'ben']
-
-// UI languages whose script has its own self-hosted traineddata beyond the
-// base set. Odia/Malayalam/Punjabi/Urdu are not hosted (yet) — those fall back
-// to the base set, which still yields amounts/dates/Latin text.
-const EXTRA_TRAINEDDATA = { ta: 'tam', te: 'tel', gu: 'guj', kn: 'kan' }
+// Traineddata for each UI language's script. Latin (eng) is always loaded on
+// top, because Indian bills print the parts we actually extract — amounts,
+// dates, account numbers — in Latin digits even when the body text is in a
+// regional script.
+//
+// Loading *only* these two matters enormously for speed: Tesseract runs every
+// loaded language model over every text line, so the eng+hin+ben set this used
+// to load made a dense bill roughly three times slower to read. Languages whose
+// traineddata we don't self-host (Malayalam, Odia, Punjabi, Urdu) simply run
+// Latin-only, which still recovers the numeric fields.
+const SCRIPT_TRAINEDDATA = {
+  hi: 'hin', mr: 'hin', sa: 'hin', ne: 'hin', kok: 'hin', mai: 'hin',
+  bn: 'ben', as: 'ben',
+  ta: 'tam', te: 'tel', gu: 'guj', kn: 'kan',
+}
 
 let workerPromise = null
 let workerLangs = '' // langs string the current worker was created with
 
 // Compose the traineddata set for a UI language.
 function langsFor(uiLang) {
-  const extra = EXTRA_TRAINEDDATA[uiLang]
-  return extra ? [...BASE_LANGS, extra].join('+') : BASE_LANGS.join('+')
+  const script = SCRIPT_TRAINEDDATA[uiLang]
+  return script ? `eng+${script}` : 'eng'
 }
 
 async function getWorker(uiLang) {
@@ -44,11 +51,17 @@ async function getWorker(uiLang) {
     workerPromise = (async () => {
       const { createWorker } = await import('tesseract.js')
       // OEM 1 = LSTM, with the "_fast" traineddata — smallest + quickest.
-      return createWorker(langs, 1, {
+      const worker = await createWorker(langs, 1, {
         workerPath: '/tesseract/worker.min.js',
         corePath: '/tesseract/tesseract-core-lstm.wasm.js',
         langPath: '/tesseract',
       })
+      // We hand Tesseract a ~300 DPI render (see fileToOcrImage). Telling it so
+      // stops it inferring scale from the pixel dimensions, which it otherwise
+      // gets wrong on a cropped phone photo and which skews its internal
+      // thresholds for what counts as a text line.
+      await worker.setParameters({ user_defined_dpi: '300' })
+      return worker
     })().catch((err) => {
       workerPromise = null // allow a later retry
       throw err

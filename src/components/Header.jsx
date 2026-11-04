@@ -6,12 +6,12 @@ export default function Header({ onBack, title, onLanguage, onHistory, onReplayT
   const { t, langLabel } = useLanguage()
 
   return (
-    <header className="flex items-center gap-2 bg-indigo px-4 py-3 text-white">
+    <header className="flex items-center gap-2 bg-indigo-deep px-4 py-3 text-white">
       {onBack ? (
         <button
           onClick={onBack}
           aria-label={t('back')}
-          className="-ml-1 flex h-11 w-11 items-center justify-center rounded-full active:bg-white/15"
+          className="-ml-1 flex h-11 w-11 items-center justify-center rounded-full active:bg-card/15"
         >
           <ArrowLeft />
         </button>
@@ -27,7 +27,7 @@ export default function Header({ onBack, title, onLanguage, onHistory, onReplayT
         <button
           onClick={onReplayTour}
           aria-label={t('obReplay')}
-          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-white/15"
+          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-card/15"
         >
           <HelpCircle size={22} />
         </button>
@@ -37,7 +37,7 @@ export default function Header({ onBack, title, onLanguage, onHistory, onReplayT
         <button
           onClick={onHistory}
           aria-label={t('historyTitle')}
-          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-white/15"
+          className="flex h-11 w-11 items-center justify-center rounded-full active:bg-card/15"
         >
           <History size={22} />
         </button>
@@ -48,7 +48,7 @@ export default function Header({ onBack, title, onLanguage, onHistory, onReplayT
           onClick={onLanguage}
           aria-label={t('language')}
           data-tour="language"
-          className="flex h-11 min-w-11 items-center gap-1 rounded-full bg-marigold-soft px-3 text-[15px] font-semibold text-indigo active:brightness-95"
+          className="flex h-11 min-w-11 items-center gap-1 rounded-full border border-marigold/50 bg-ink/12 px-3 text-[15px] font-semibold text-ink active:brightness-125"
         >
           <span>{langLabel}</span>
           <span aria-hidden className="text-xs">▾</span>

@@ -1,17 +1,35 @@
 @import "tailwindcss";
 
-/* ── Saral design tokens (SKILL.md) — exposed as Tailwind utilities ──── */
+/* ── Saral design tokens (SKILL.md) — exposed as Tailwind utilities ────
+   Dark theme by default. The palette keeps Saral's indigo + marigold identity
+   but inverts the ground, and every pairing is kept at a high contrast ratio —
+   the audience is elderly and often low-vision, so legibility outranks
+   subtlety. `indigo` is the light tint used for headings and labels, while
+   `indigo-deep` is the saturated background behind the header and primary
+   buttons; they were one token in the light theme and have to be separate here
+   because a colour can't be both readable text and a dark ground. */
 @theme {
-  --color-indigo: #1E2A78;
-  --color-indigo-tint: #EAECF7;
+  --color-indigo: #A9B6F0;
+  --color-indigo-deep: #2A3585;
+  --color-indigo-tint: #232B47;
   --color-marigold: #F4A300;
-  --color-marigold-soft: #FFF4DC;
-  --color-ink: #1A1A1A;
-  --color-surface: #F5F6FA;
-  --color-success: #1B7F5C;
-  --color-caution: #C2410C;
-  --color-caution-soft: #FBEAE2;
-  --color-line: #E4E7F0;
+  /* Marigold stays a *light* colour in the dark theme, so anything sitting on
+     it needs dark text — `ink` is near-white here and would drop to about 2:1.
+     This is the one place the palette doesn't simply invert. */
+  --color-on-accent: #14161B;
+  /* Warm accents don't survive being darkened: brown *is* dark orange, so any
+     marigold fill over a near-black ground trends muddy however it's mixed.
+     This is kept as a barely-there lift for small selected states, and the
+     larger highlight panels use a neutral card with a marigold edge instead
+     (see the note styling in WalkthroughScreen / HistoryScreen). */
+  --color-marigold-soft: rgba(244, 163, 0, 0.09);
+  --color-ink: #F0F2F8;
+  --color-surface: #0F1218;
+  --color-card: #1A1F2B;
+  --color-success: #34D399;
+  --color-caution: #FB923C;
+  --color-caution-soft: rgba(251, 146, 60, 0.15);
+  --color-line: #2E3646;
 
   /* Per-glyph fallback: the browser walks the list and uses the first family
      that has the glyph, so one chain covers every script. Latin → Noto Sans;
@@ -27,6 +45,13 @@ html,
 body,
 #root {
   height: 100%;
+}
+
+/* Tells the browser to render its own chrome — scrollbars, the text caret, the
+   file picker, native form controls — in dark. Without it those stay light and
+   flash white against the app. */
+:root {
+  color-scheme: dark;
 }
 
 body {
